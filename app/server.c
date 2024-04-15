@@ -11,6 +11,7 @@ int main() {
 	// Disable output buffering
 	setbuf(stdout, NULL);
 
+
 	// You can use print statements as follows for debugging, they'll be visible when running tests.
 	printf("Logs from your program will appear here!\n");
 
@@ -52,8 +53,21 @@ int main() {
 	printf("Waiting for a client to connect...\n");
 	client_addr_len = sizeof(client_addr);
 	
-	accept(server_fd, (struct sockaddr *) &client_addr, &client_addr_len);
+
+	// Stage 2 code
+	int client_fd = accept(server_fd, (struct sockaddr *) &client_addr, &client_addr_len); //create file descriptor for client
 	printf("Client connected\n");
+
+	char client_buffer[1024];
+
+	if(read(client_fd, client_buffer, sizeof(client_buffer)) < 0) { //read from client
+		printf("Error reading from client: %s\n", strerror(errno));
+		return -1;
+	}
+
+	const char response[] = 'HTTP/1.1.200 OK\r\n\r\n';
+	send(client_fd, response, sizeof(response), 0); //send response to client
+
 	
 	close(server_fd);
 
