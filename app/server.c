@@ -65,7 +65,7 @@ int main() {
 		return -1;
 	}
 
-	const char response[] = 'HTTP/1.1 200 OK\r\n\r\n';
+	const char response[] = *'HTTP/1.1 200 OK\r\n\r\n';
 	send(client_fd, response, sizeof(response), 0); //send response to client
 
 	
