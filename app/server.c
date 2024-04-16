@@ -6,7 +6,6 @@
 #include <string.h>
 #include <errno.h>
 #include <unistd.h>
-#include <server_variables.h>
 
 int main()
 {
