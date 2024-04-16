@@ -9,6 +9,8 @@
 
 int main()
 {
+
+	char CRLF[4] = "\r\n"; // carriage return line feed
 	// variable declarations
 	struct HTTP_STATUS_CODES
 	{
@@ -17,8 +19,8 @@ int main()
 	};
 
 	struct HTTP_STATUS_CODES HTTP_status_codes = {
-		"HTTP/1.1 404 Not Found\r\n\r\n",
-		"HTTP/1.1 200 OK\r\n\r\n"};
+		"HTTP/1.1 404 Not Found\r\n",
+		"HTTP/1.1 200 OK\r\n"};
 
 	struct HTTP_STATUS_MESSAGES
 	{
@@ -128,7 +130,11 @@ int main()
 
 	if (strcmp(request.path, "/") == 0) // check if string is only /
 	{
-		send(client_fd, HTTP_status_codes.HTTP_OK, sizeof(HTTP_status_codes.HTTP_OK), 0); // send response to client
+		strcpy(response.status_code, HTTP_status_codes.HTTP_OK);
+		char responseStr[2048];
+		sprintf(responseStr, "%s", response.status_code);
+
+		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
 	}
 	else if(strstr(request.path, "/echo/") != NULL)
 	{
@@ -141,14 +147,16 @@ int main()
 		sprintf(content_length_buffer, "%d", response.content_length);
 
 		char responseStr[2048];
-		sprintf(responseStr, "%s %s %s\r\nContent-Type: %s\r\nContent-Length: %d\r\n\r\n%s",
+		sprintf(responseStr, "%s %s\r\nContent-Type: %s\r\nContent-Length: %d\r\n\r\n%s",
 		response.status_code, 
-		response.status_message, 
 		response.content_type, 
 		response.content_length, 
-		response.body);
+		response.body
+		);
 
 		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
+		
+		//Debugging prints
 		printf("Status Code: %s\n", response.status_code);
 		printf("Status Message: %s\n", response.status_message);
 		printf("Content Type: %s\n", response.content_type);
@@ -159,7 +167,11 @@ int main()
 	}
 	else
 	{
-		send(client_fd, HTTP_status_codes.HTTP_NOT_FOUND, sizeof(HTTP_status_codes.HTTP_NOT_FOUND), 0); // send response to client
+		strcpy(response.status_code, HTTP_status_codes.HTTP_NOT_FOUND);
+		char responseStr[2048];
+		sprintf(responseStr, "%s", response.status_code);
+
+		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
 	}
 
 	// printf(client_buffer); // print client message for seeing structure
