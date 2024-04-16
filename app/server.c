@@ -133,6 +133,7 @@ int main()
 		strcpy(response.status_code, HTTP_status_codes.HTTP_OK);
 		char responseStr[2048];
 		sprintf(responseStr, "%s", response.status_code);
+		strcat(responseStr, CRLF);
 
 		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
 	}
@@ -170,6 +171,7 @@ int main()
 		strcpy(response.status_code, HTTP_status_codes.HTTP_NOT_FOUND);
 		char responseStr[2048];
 		sprintf(responseStr, "%s", response.status_code);
+		strcat(responseStr, CRLF);
 
 		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
 	}
