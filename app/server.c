@@ -10,13 +10,17 @@
 int main()
 {
 	// variable declarations
-	struct HTTP_status_codes
+	struct HTTP_STATUS_CODES
 	{
-		const char HTTP_NOT_FOUND[30] = "HTTP/1.1 404 Not Found\r\n\r\n";
-		const char HTTP_OK[30] = "HTTP/1.1 200 OK\r\n\r\n";
+		char HTTP_NOT_FOUND[30];
+		char HTTP_OK[30];
 	};
 
-	struct HTTP_status_codes HTTP_status_codes;
+	int main() {
+		struct HTTP_STATUS_CODES HTTP_status_codes = {
+			"HTTP/1.1 404 Not Found\r\n\r\n",
+			"HTTP/1.1 200 OK\r\n\r\n"
+		};
 
 	// Disable output buffering
 	setbuf(stdout, NULL);
@@ -81,7 +85,7 @@ int main()
 	}
 
 	// const char HTTP_OK[] = "HTTP/1.1 200 OK\r\n\r\n";
-	//send(client_fd, HTTP_status_codes.HTTP_OK, sizeof(HTTP_status_codes.HTTP_OK), 0); // send response to client
+	send(client_fd, HTTP_status_codes.HTTP_OK, sizeof(HTTP_status_codes.HTTP_OK), 0); // send response to client
 
 	// stage 3 code
 	printf(HTTP_status_codes.HTTP_OK);
