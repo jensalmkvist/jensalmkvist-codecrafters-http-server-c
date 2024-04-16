@@ -81,10 +81,11 @@ int main()
 	}
 
 	// const char HTTP_OK[] = "HTTP/1.1 200 OK\r\n\r\n";
-	send(client_fd, HTTP_status_codes.HTTP_OK, sizeof(HTTP_status_codes.HTTP_OK), 0); // send response to client
+	//send(client_fd, HTTP_status_codes.HTTP_OK, sizeof(HTTP_status_codes.HTTP_OK), 0); // send response to client
 
 	// stage 3 code
 	printf(HTTP_status_codes.HTTP_OK);
+	
 
 	close(server_fd);
 
