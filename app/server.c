@@ -154,7 +154,7 @@ int main()
 		printf("Response body: %s \n", response.body);
 		printf("strlen sixe of body: %zu \n", strlen(response.body));
 
-		sprintf(responseStr, "%sContent-Type: %s %sContent-Length: %u%s%s%s%s",
+		sprintf(responseStr, "%sContent-Type: %s %sContent-Length: %s%s%s%s%s",
 				response.status_code,
 				response.content_type,
 				CRLF,
@@ -170,11 +170,11 @@ int main()
 		send(client_fd, responseStrSend, sizeof(responseStrSend), 0); // send response to client
 
 		// Debugging prints
-		printf("Status Code: %s\n", response.status_code);
-		printf("Status Message: %s\n", response.status_message);
-		printf("Content Type: %s\n", response.content_type);
-		printf("Body: %s\n", response.body);
-		printf("Content Length: %s\n", response.content_length);
+//		printf("Status Code: %s\n", response.status_code);
+//		printf("Status Message: %s\n", response.status_message);
+//		printf("Content Type: %s\n", response.content_type);
+//		printf("Body: %s\n", response.body);
+//		printf("Content Length: %s\n", response.content_length);
 		printf("Response:\n%s\n", responseStr);
 	}
 	else
