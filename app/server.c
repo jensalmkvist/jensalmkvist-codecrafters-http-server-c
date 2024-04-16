@@ -98,9 +98,9 @@ int main()
 	sscanf(client_buffer, "%s %s %s", request.http_method, request.path, request.http_protocol); // parse client message
 
 	// Print request for debugging purposes
-	printf("HTTP Method: %s\n", request.http_method);
+/* 	printf("HTTP Method: %s\n", request.http_method);
 	printf("Path: %s\n", request.path);
-	printf("HTTP Protocol: %s\n", request.http_protocol);
+	printf("HTTP Protocol: %s\n", request.http_protocol); */
 
 	if (strcmp(request.path, "/") == 0) //check if string is only /
 	{
