@@ -6,6 +6,7 @@
 #include <string.h>
 #include <errno.h>
 #include <unistd.h>
+#include <server_variables.h>
 
 int main() {
 	// Disable output buffering
@@ -58,6 +59,7 @@ int main() {
 	int client_fd = accept(server_fd, (struct sockaddr *) &client_addr, &client_addr_len); //create file descriptor for client
 	printf("Client connected\n");
 
+	//decalre buffer for client message
 	char client_buffer[1024];
 
 	if(read(client_fd, client_buffer, sizeof(client_buffer)) < 0) { //read from client
@@ -65,10 +67,15 @@ int main() {
 		return -1;
 	}
 
-	const char OKresponse[] = "HTTP/1.1 200 OK\r\n\r\n";
-	send(client_fd, OKresponse, sizeof(OKresponse), 0); //send response to client
+	//const char HTTP_OK[] = "HTTP/1.1 200 OK\r\n\r\n";
+	send(client_fd, HTTP_status_codes.HTTP_OK, sizeof(HTTP_status_codes.HTTP_OK), 0); //send response to client
+
+	//stage 3 code
+	const char HTTP_NOT_FOUND[] = "HTTP/1.1 404 Not Found\r\n\r\n";
+
 
 	
+
 	close(server_fd);
 
 	return 0;
