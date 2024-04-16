@@ -154,7 +154,7 @@ int main()
 				CRLF,
 				content_length_buffer,
 				CRLF, response.body,
-				CRLF, );
+				CRLF);
 
 		strcat(responseStr, CRLF);
 		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
