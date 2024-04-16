@@ -139,6 +139,7 @@ int main()
 	}
 	else if(strstr(request.path, "/echo/") != NULL)
 	{
+		printf("enter else if\n");
 		strcpy(response.status_code, HTTP_status_codes.HTTP_OK);
 		strcpy(response.status_message, HTTP_status_messages.OK);
 		strcpy(response.content_type, "text/plain");
