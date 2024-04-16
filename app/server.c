@@ -127,7 +127,7 @@ int main()
 	//	printf("Path: %s\n", request.path);
 	//	printf("HTTP Protocol: %s\n", request.http_protocol);
 
-	char responseStr[2048];
+	char responseStr[];
 
 	if (strcmp(request.path, "/") == 0) // check if string is only /
 	{
@@ -167,7 +167,7 @@ int main()
 		printf("Status Message: %s\n", response.status_message);
 		printf("Content Type: %s\n", response.content_type);
 		printf("Body: %s\n", response.body);
-		printf("Content Length: %d\n", response.content_length);
+		printf("Content Length: %s\n", response.content_length);
 		printf("Response:\n%s\n", responseStr);
 	}
 	else
