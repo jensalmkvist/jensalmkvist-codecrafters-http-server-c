@@ -42,7 +42,7 @@ int main()
 	struct Response
 	{
 		char http_protocol[10];
-		char status_code[10];
+		char status_code[30];
 		char status_message[30];
 		char content_type[30];
 		char content_length[10];
@@ -137,7 +137,17 @@ int main()
 		response.content_type = "text/plain";
 		response.body = request.path + strlen("/echo/");
 		response.content_length = strlen(response.body);
-		send(client_fd, response, sizeof(response), 0); // send response to client
+
+		char responseStr[2048];
+		sprintf(responseStr, "%s %s %s\r\nContent-Type: %s\r\nContent-Length: %d\r\n\r\n%s",
+		response.status_code, 
+		response.status_message, 
+		response.content_type, 
+		response.content_length, 
+		response.body);
+
+		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
+		printf("Response: %s\n", responseStr);
 	}
 	else
 	{
