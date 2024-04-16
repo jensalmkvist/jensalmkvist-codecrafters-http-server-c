@@ -132,10 +132,10 @@ int main()
 	}
 	else if(strstr(request.path, "/echo/") != NULL)
 	{
-		response.status_code = HTTP_status_codes.HTTP_OK;
-		response.status_message = HTTP_status_messages.OK;
-		response.content_type = "text/plain";
-		response.body = request.path + strlen("/echo/");
+		strcpy(response.status_code, HTTP_status_codes.HTTP_OK);
+		strcpy(response.status_message, HTTP_status_messages.OK);
+		strcpy(response.content_type, "text/plain");
+		strcpy(response.body, request.path + strlen("/echo/"));
 		response.content_length = strlen(response.body);
 
 		char responseStr[2048];
