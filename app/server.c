@@ -91,7 +91,8 @@ int main()
 		return -1;
 	}
 
-	send(client_fd, HTTP_status_codes.HTTP_OK, sizeof(HTTP_status_codes.HTTP_OK), 0); // send response to client
+	//This line is not used for stage 3 and after
+	//send(client_fd, HTTP_status_codes.HTTP_OK, sizeof(HTTP_status_codes.HTTP_OK), 0); // send response to client
 
 	// stage 3 code
 	sscanf(client_buffer, "%s %s %s", request.http_method, request.path, request.http_protocol); // parse client message
