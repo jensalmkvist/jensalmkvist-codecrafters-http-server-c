@@ -151,18 +151,18 @@ int main()
 		printf("else if 3\n");
 
 		printf("else if 4\n");
-		//sprintf(responseStr, "%s %s\r\nContent-Type: %s\r\nContent-Length: %d\r\n\r\n%s", response.status_code, response.content_type, response.content_length, response.body);
+		sprintf(responseStr, "%s %s Content-Type: %s %s Content-Length: %d %s %s %s %s",
+				response.status_code,
+				CRLF,
+				response.content_type,
+				CRLF,
+				content_length_buffer,
+				CRLF, response.body,
+				CRLF,
+				CRLF);
 		printf("else if 5\n");
 
-		// Debugging prints
-		printf("Status Code: %s\n", response.status_code);
-		printf("Status Message: %s\n", response.status_message);
-		printf("Content Type: %s\n", response.content_type);
-		printf("Body: %s\n", response.body);
-		printf("Content Length: %d\n", response.content_length);
-		printf("content_length_buffer: %s\n", content_length_buffer);
-		printf("Response: %s\n", responseStr);
-
+		strcat(responseStr, CRLF);
 		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
 
 		// Debugging prints
