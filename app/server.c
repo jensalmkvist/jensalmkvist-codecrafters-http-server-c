@@ -20,6 +20,15 @@ int main()
 		"HTTP/1.1 404 Not Found\r\n\r\n",
 		"HTTP/1.1 200 OK\r\n\r\n"};
 
+	struct Request
+	{
+		char http_method[10];
+		char path[100];
+		char http_protocol[10];
+	};
+
+	struct Request request;
+
 	// Disable output buffering
 	setbuf(stdout, NULL);
 
@@ -73,7 +82,7 @@ int main()
 	int client_fd = accept(server_fd, (struct sockaddr *)&client_addr, &client_addr_len); // create file descriptor for client
 	printf("Client connected\n");
 
-	// decalre buffer for client message
+	// declare buffer for client message
 	char client_buffer[1024];
 
 	if (read(client_fd, client_buffer, sizeof(client_buffer)) < 0)
@@ -82,11 +91,24 @@ int main()
 		return -1;
 	}
 
-	// const char HTTP_OK[] = "HTTP/1.1 200 OK\r\n\r\n";
 	send(client_fd, HTTP_status_codes.HTTP_OK, sizeof(HTTP_status_codes.HTTP_OK), 0); // send response to client
 
 	// stage 3 code
-	printf(HTTP_status_codes.HTTP_OK);
+	sscanf(client_buffer, "%s %s %s", request.http_method, request.path, request.http_protocol); // parse client message
+
+	// Print request for debugging purposes
+	printf("HTTP Method: %s\n", request.http_method);
+	printf("Path: %s\n", request.path);
+	printf("HTTP Protocol: %s\n", request.http_protocol);
+
+	if (strcmp(request.path, "/") == 0) //check if string is only /
+	{
+		send(client_fd, HTTP_status_codes.HTTP_OK, sizeof(HTTP_status_codes.HTTP_OK), 0); // send response to client
+	}
+	else
+	{
+		send(client_fd, HTTP_status_codes.HTTP_NOT_FOUND, sizeof(HTTP_status_codes.HTTP_NOT_FOUND), 0); // send response to client
+	}
 
 	close(server_fd);
 
