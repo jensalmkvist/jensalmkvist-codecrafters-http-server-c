@@ -154,6 +154,7 @@ int main()
 		printf("Content Type: %s\n", response.content_type);
 		printf("Body: %s\n", response.body);
 		printf("Content Length: %d\n", response.content_length);
+		printf("content_length_buffer: %s\n", content_length_buffer);
 		printf("Response: %s\n", responseStr);
 	}
 	else
