@@ -127,11 +127,12 @@ int main()
 	//	printf("Path: %s\n", request.path);
 	//	printf("HTTP Protocol: %s\n", request.http_protocol);
 
-	char responseStr[1024];
+	char responseStr_buffer[2048];
 
 	if (strcmp(request.path, "/") == 0) // check if string is only /
 	{
 		strcpy(response.status_code, HTTP_status_codes.HTTP_OK);
+		char responseStr[strlen(response)];
 		sprintf(responseStr, "%s", response.status_code);
 		strcat(responseStr, CRLF);
 
@@ -150,6 +151,8 @@ int main()
 		printf("Content length: %s \n", response.content_length);
 		printf("Response body: %s \n", response.body);
 		printf("strlen sixe of body: %zu \n", strlen(response.body));
+
+		char responseStr[strlen(response)];
 
 		sprintf(responseStr, "%sContent-Type: %s %sContent-Length: %u%s%s%s%s",
 				response.status_code,
@@ -173,6 +176,7 @@ int main()
 	else
 	{
 		strcpy(response.status_code, HTTP_status_codes.HTTP_NOT_FOUND);
+		char responseStr[strlen(response)];
 		sprintf(responseStr, "%s", response.status_code);
 		strcat(responseStr, CRLF);
 
