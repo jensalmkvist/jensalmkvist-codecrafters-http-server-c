@@ -120,7 +120,7 @@ int main()
 	// send(client_fd, HTTP_status_codes.HTTP_OK, sizeof(HTTP_status_codes.HTTP_OK), 0); // send response to client
 
 	// stage 3 code
-	sscanf(client_buffer, "%s %s %s", request.http_method, request.path, request.http_protocolt); // parse client message
+	sscanf(client_buffer, "%s %s %s", request.http_method, request.path, request.http_protocol); // parse client message
 
 	// Print request for debugging purposes
 	printf("HTTP Method: %s\n", request.http_method);
