@@ -98,9 +98,9 @@ int main()
 	sscanf(client_buffer, "%s %s %s", request.http_method, request.path, request.http_protocol); // parse client message
 
 	// Print request for debugging purposes
-/* 	printf("HTTP Method: %s\n", request.http_method);
-	printf("Path: %s\n", request.path);
-	printf("HTTP Protocol: %s\n", request.http_protocol); */
+ 	printf("HTTP Method: %s\n", request.http_method);
+//	printf("Path: %s\n", request.path);
+//	printf("HTTP Protocol: %s\n", request.http_protocol); 
 
 	if (strcmp(request.path, "/") == 0) //check if string is only /
 	{
@@ -111,7 +111,7 @@ int main()
 		send(client_fd, HTTP_status_codes.HTTP_NOT_FOUND, sizeof(HTTP_status_codes.HTTP_NOT_FOUND), 0); // send response to client
 	}
 
-	printf(client_buffer); // print client message for seeing structure
+	//printf(client_buffer); // print client message for seeing structure
 
 	close(server_fd);
 
