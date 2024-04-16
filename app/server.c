@@ -16,11 +16,9 @@ int main()
 		char HTTP_OK[30];
 	};
 
-	int main() {
-		struct HTTP_STATUS_CODES HTTP_status_codes = {
-			"HTTP/1.1 404 Not Found\r\n\r\n",
-			"HTTP/1.1 200 OK\r\n\r\n"
-		};
+	struct HTTP_STATUS_CODES HTTP_status_codes = {
+		"HTTP/1.1 404 Not Found\r\n\r\n",
+		"HTTP/1.1 200 OK\r\n\r\n"};
 
 	// Disable output buffering
 	setbuf(stdout, NULL);
@@ -89,7 +87,6 @@ int main()
 
 	// stage 3 code
 	printf(HTTP_status_codes.HTTP_OK);
-	
 
 	close(server_fd);
 
