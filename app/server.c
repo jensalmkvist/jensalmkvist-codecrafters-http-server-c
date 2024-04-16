@@ -136,7 +136,9 @@ int main()
 		strcpy(response.status_message, HTTP_status_messages.OK);
 		strcpy(response.content_type, "text/plain");
 		strcpy(response.body, request.path + strlen("/echo/"));
-		response.content_length = strlen(response.body);
+
+		char content_length_buffer[sizeof(response.body)];
+		sprintf(response.content_buffer, "%d", response.content_length);
 
 		char responseStr[2048];
 		sprintf(responseStr, "%s %s %s\r\nContent-Type: %s\r\nContent-Length: %d\r\n\r\n%s",
