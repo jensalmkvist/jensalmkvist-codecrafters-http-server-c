@@ -20,6 +20,16 @@ int main()
 		"HTTP/1.1 404 Not Found\r\n\r\n",
 		"HTTP/1.1 200 OK\r\n\r\n"};
 
+	struct HTTP_STATUS_MESSAGES
+	{
+		char NOT_FOUND[30];
+		char OK[30];
+	};
+
+	struct HTTP_STATUS_MESSAGES HTTP_status_messages = {
+		"404 Not Found",
+		"200 OK"};
+
 	struct Request
 	{
 		char http_method[10];
@@ -28,6 +38,18 @@ int main()
 	};
 
 	struct Request request;
+
+	struct Response
+	{
+		char http_protocol[10];
+		char status_code[10];
+		char status_message[30];
+		char content_type[30];
+		char content_length[10];
+		char body[1000];
+	};
+
+	struct Response response;
 
 	// Disable output buffering
 	setbuf(stdout, NULL);
@@ -91,27 +113,32 @@ int main()
 		return -1;
 	}
 
-	//This line is not used for stage 3 and after
-	//send(client_fd, HTTP_status_codes.HTTP_OK, sizeof(HTTP_status_codes.HTTP_OK), 0); // send response to client
+	// This line is not used for stage 3 and after
+	// send(client_fd, HTTP_status_codes.HTTP_OK, sizeof(HTTP_status_codes.HTTP_OK), 0); // send response to client
 
 	// stage 3 code
 	sscanf(client_buffer, "%s %s %s", request.http_method, request.path, request.http_protocol); // parse client message
 
 	// Print request for debugging purposes
- 	printf("HTTP Method: %s\n", request.http_method);
+	printf("HTTP Method: %s\n", request.http_method);
 	printf("Path: %s\n", request.path);
-	printf("HTTP Protocol: %s\n", request.http_protocol); 
+	printf("HTTP Protocol: %s\n", request.http_protocol);
 
-	if (strcmp(request.path, "/") == 0) //check if string is only /
+	if (strcmp(request.path, "/") == 0) // check if string is only /
 	{
 		send(client_fd, HTTP_status_codes.HTTP_OK, sizeof(HTTP_status_codes.HTTP_OK), 0); // send response to client
+	}
+	elsif(strcmp(request.path, "/echo/"))
+	{
+		printf("Printing path\n");
+		printf(request.path);
 	}
 	else
 	{
 		send(client_fd, HTTP_status_codes.HTTP_NOT_FOUND, sizeof(HTTP_status_codes.HTTP_NOT_FOUND), 0); // send response to client
 	}
 
-	//printf(client_buffer); // print client message for seeing structure
+	// printf(client_buffer); // print client message for seeing structure
 
 	close(server_fd);
 
