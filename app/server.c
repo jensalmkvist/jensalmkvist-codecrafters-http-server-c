@@ -151,7 +151,7 @@ int main()
 		printf("else if 3\n");
 
 		printf("else if 4\n");
-		sprintf(responseStr, "%s %s\r\nContent-Type: %s\r\nContent-Length: %d\r\n\r\n%s", response.status_code, response.content_type, response.content_length, response.body);
+		//sprintf(responseStr, "%s %s\r\nContent-Type: %s\r\nContent-Length: %d\r\n\r\n%s", response.status_code, response.content_type, response.content_length, response.body);
 		printf("else if 5\n");
 
 		// Debugging prints
