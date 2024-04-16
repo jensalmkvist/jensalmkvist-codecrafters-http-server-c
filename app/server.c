@@ -122,9 +122,9 @@ int main()
 	sscanf(client_buffer, "%s %s %s", request.http_method, request.path, request.http_protocol); // parse client message
 
 	// Print request for debugging purposes
-	printf("HTTP Method: %s\n", request.http_method);
-	printf("Path: %s\n", request.path);
-	printf("HTTP Protocol: %s\n", request.http_protocol);
+//	printf("HTTP Method: %s\n", request.http_method);
+//	printf("Path: %s\n", request.path);
+//	printf("HTTP Protocol: %s\n", request.http_protocol);
 
 	if (strcmp(request.path, "/") == 0) // check if string is only /
 	{
@@ -149,6 +149,11 @@ int main()
 		response.body);
 
 		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
+		printf("Status Code: %s\n", response.status_code);
+		printf("Status Message: %s\n", response.status_message);
+		printf("Content Type: %s\n", response.content_type);
+		printf("Body: %s\n", response.body);
+		printf("Content Length: %d\n", response.content_length);
 		printf("Response: %s\n", responseStr);
 	}
 	else
