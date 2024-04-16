@@ -128,6 +128,8 @@ int main()
 		printf("HTTP Method: %s\n", request.http_method);
 		printf("Path: %s\n", request.path);
 		printf("HTTP Protocol: %s\n", request.http_protocol);
+		printf("Host: %s\n", request.host);
+		printf("User Agent: %s\n", request.user_agent);
 
 	char responseStr[1024];
 
