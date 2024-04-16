@@ -123,9 +123,9 @@ int main()
 	sscanf(client_buffer, "%s %s %s", request.http_method, request.path, request.http_protocol); // parse client message
 
 	// Print request for debugging purposes
-	//	printf("HTTP Method: %s\n", request.http_method);
-	//	printf("Path: %s\n", request.path);
-	//	printf("HTTP Protocol: %s\n", request.http_protocol);
+		printf("HTTP Method: %s\n", request.http_method);
+		printf("Path: %s\n", request.path);
+		printf("HTTP Protocol: %s\n", request.http_protocol);
 
 	char responseStr[1024];
 
@@ -135,10 +135,7 @@ int main()
 		sprintf(responseStr, "%s", response.status_code);
 		strcat(responseStr, CRLF);
 
-		char responseStrSend[strlen(responseStr) + 1];
-		strncpy(responseStrSend, responseStr, sizeof(responseStrSend));
-
-		send(client_fd, responseStrSend, sizeof(responseStrSend), 0); // send response to client
+		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
 	}
 	else if (strstr(request.path, "/echo/") != NULL)
 	{
@@ -150,9 +147,9 @@ int main()
 
 		//char content_length_buffer[strlen(response.body)];
 		sprintf(response.content_length, "%zu", strlen(response.body));
-		printf("Content length: %s \n", response.content_length);
-		printf("Response body: %s \n", response.body);
-		printf("strlen sixe of body: %zu \n", strlen(response.body));
+//		printf("Content length: %s \n", response.content_length);
+//		printf("Response body: %s \n", response.body);
+//		printf("strlen sixe of body: %zu \n", strlen(response.body));
 
 		sprintf(responseStr, "%sContent-Type: %s %sContent-Length: %s%s%s%s%s",
 				response.status_code,
@@ -164,11 +161,7 @@ int main()
 
 		strcat(responseStr, CRLF);
 
-		char responseStrSend[strlen(responseStr) + 1];
-		strncpy(responseStrSend, responseStr, sizeof(responseStrSend));
-		printf("ResponseStrSebd: %s \n", responseStrSend);
-
-		send(client_fd, responseStrSend, sizeof(responseStrSend), 0); // send response to client
+		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
 
 		// Debugging prints
 //		printf("Status Code: %s\n", response.status_code);
@@ -184,10 +177,7 @@ int main()
 		sprintf(responseStr, "%s", response.status_code);
 		strcat(responseStr, CRLF);
 
-		char responseStrSend[strlen(responseStr) + 1];
-		strncpy(responseStrSend, responseStr, sizeof(responseStrSend));
-
-		send(client_fd, responseStrSend, sizeof(responseStrSend), 0); // send response to client
+		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
 	}
 
 	// printf(client_buffer); // print client message for seeing structure
