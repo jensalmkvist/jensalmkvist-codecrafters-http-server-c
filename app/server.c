@@ -144,17 +144,21 @@ int main()
 		strcpy(response.status_message, HTTP_status_messages.OK);
 		strcpy(response.content_type, "text/plain");
 		strcpy(response.body, request.path + strlen("/echo/"));
+		printf("else if 2\n");
 
 		char content_length_buffer[sizeof(response.body)];
 		sprintf(content_length_buffer, "%d", response.content_length);
+		printf("else if 2\n");
 
 		char responseStr[2048];
+		printf("else if 2\n");
 		sprintf(responseStr, "%s %s\r\nContent-Type: %s\r\nContent-Length: %d\r\n\r\n%s",
 		response.status_code, 
 		response.content_type, 
 		response.content_length, 
 		response.body
 		);
+		printf("else if 2\n");
 
 				//Debugging prints
 		printf("Status Code: %s\n", response.status_code);
