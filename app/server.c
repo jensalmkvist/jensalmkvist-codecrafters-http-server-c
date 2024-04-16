@@ -116,6 +116,8 @@ int main()
 		return -1;
 	}
 
+	printf("Printing client buffer %s\n", client_buffer);
+
 	// This line is not used for stage 3 and after
 	// send(client_fd, HTTP_status_codes.HTTP_OK, sizeof(HTTP_status_codes.HTTP_OK), 0); // send response to client
 
