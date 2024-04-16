@@ -52,8 +52,7 @@ int main()
 	};
 
 	struct Response response = {
-		.http_protocol = "HTTP/1.1"
-	};
+		.http_protocol = "HTTP/1.1"};
 
 	// Disable output buffering
 	setbuf(stdout, NULL);
@@ -124,20 +123,21 @@ int main()
 	sscanf(client_buffer, "%s %s %s", request.http_method, request.path, request.http_protocol); // parse client message
 
 	// Print request for debugging purposes
-//	printf("HTTP Method: %s\n", request.http_method);
-//	printf("Path: %s\n", request.path);
-//	printf("HTTP Protocol: %s\n", request.http_protocol);
+	//	printf("HTTP Method: %s\n", request.http_method);
+	//	printf("Path: %s\n", request.path);
+	//	printf("HTTP Protocol: %s\n", request.http_protocol);
+
+	char responseStr[2048];
 
 	if (strcmp(request.path, "/") == 0) // check if string is only /
 	{
 		strcpy(response.status_code, HTTP_status_codes.HTTP_OK);
-		char responseStr[2048];
 		sprintf(responseStr, "%s", response.status_code);
 		strcat(responseStr, CRLF);
 
 		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
 	}
-	else if(strstr(request.path, "/echo/") != NULL)
+	else if (strstr(request.path, "/echo/") != NULL)
 	{
 		printf("enter else if\n");
 		strcpy(response.status_code, HTTP_status_codes.HTTP_OK);
@@ -148,19 +148,17 @@ int main()
 
 		char content_length_buffer[sizeof(response.body)];
 		sprintf(content_length_buffer, "%d", response.content_length);
-		printf("else if 2\n");
+		printf("else if 3\n");
 
-		char responseStr[2048];
-		printf("else if 2\n");
+		printf("else if 4\n");
 		sprintf(responseStr, "%s %s\r\nContent-Type: %s\r\nContent-Length: %d\r\n\r\n%s",
-		response.status_code, 
-		response.content_type, 
-		response.content_length, 
-		response.body
-		);
-		printf("else if 2\n");
+				response.status_code,
+				response.content_type,
+				response.content_length,
+				response.body);
+		printf("else if 5\n");
 
-				//Debugging prints
+		// Debugging prints
 		printf("Status Code: %s\n", response.status_code);
 		printf("Status Message: %s\n", response.status_message);
 		printf("Content Type: %s\n", response.content_type);
@@ -170,8 +168,8 @@ int main()
 		printf("Response: %s\n", responseStr);
 
 		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
-		
-		//Debugging prints
+
+		// Debugging prints
 		printf("Status Code: %s\n", response.status_code);
 		printf("Status Message: %s\n", response.status_message);
 		printf("Content Type: %s\n", response.content_type);
@@ -183,7 +181,6 @@ int main()
 	else
 	{
 		strcpy(response.status_code, HTTP_status_codes.HTTP_NOT_FOUND);
-		char responseStr[2048];
 		sprintf(responseStr, "%s", response.status_code);
 		strcat(responseStr, CRLF);
 
