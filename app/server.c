@@ -146,9 +146,10 @@ int main()
 		strcpy(response.body, request.path + strlen("/echo/"));
 
 		char content_length_buffer[strlen(response.body)];
-		sprintf(content_length_buffer, "%d", response.content_length);
+		sprintf(content_length_buffer, "%zu", response.content_length);
 		printf("Content legth buffer: %zu \n", content_length_buffer);
 		printf("Response body: %s \n", response.body);
+		printf("strlen sixe of body: %zu \n", strlen(response.body));
 
 		sprintf(responseStr, "%sContent-Type: %s %sContent-Length: %u%s%s%s%s",
 				response.status_code,
@@ -168,7 +169,7 @@ int main()
 //		printf("Body: %s\n", response.body);
 //		printf("Content Length: %d\n", response.content_length);
 //		printf("content_length_buffer: %s\n", content_length_buffer);
-		printf("Response:\n%s\n", responseStr);
+//		printf("Response:\n%s\n", responseStr);
 	}
 	else
 	{
