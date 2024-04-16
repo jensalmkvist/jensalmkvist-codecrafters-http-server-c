@@ -128,7 +128,7 @@ int main()
 	{
 		send(client_fd, HTTP_status_codes.HTTP_OK, sizeof(HTTP_status_codes.HTTP_OK), 0); // send response to client
 	}
-	else if(strcmp(request.path, "/echo/"))
+	else if(strstr(request.path, "/echo/") != NULL)
 	{
 		printf("Printing path\n");
 		printf(request.path);
