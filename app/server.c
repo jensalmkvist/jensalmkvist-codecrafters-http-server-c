@@ -111,6 +111,8 @@ int main()
 		send(client_fd, HTTP_status_codes.HTTP_NOT_FOUND, sizeof(HTTP_status_codes.HTTP_NOT_FOUND), 0); // send response to client
 	}
 
+	printf(client_buffer); // print client message for seeing structure
+
 	close(server_fd);
 
 	return 0;
