@@ -138,7 +138,7 @@ int main()
 		strcpy(response.body, request.path + strlen("/echo/"));
 
 		char content_length_buffer[sizeof(response.body)];
-		sprintf(response.content_buffer, "%d", response.content_length);
+		sprintf(content_length_buffer, "%d", response.content_length);
 
 		char responseStr[2048];
 		sprintf(responseStr, "%s %s %s\r\nContent-Type: %s\r\nContent-Length: %d\r\n\r\n%s",
