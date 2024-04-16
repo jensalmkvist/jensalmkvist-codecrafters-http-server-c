@@ -83,7 +83,7 @@ int main()
 	printf("Client connected\n");
 
 	// declare buffer for client message
-	char client_buffer[1024];
+	char client_buffer[2048];
 
 	if (read(client_fd, client_buffer, sizeof(client_buffer)) < 0)
 	{ // read from client
