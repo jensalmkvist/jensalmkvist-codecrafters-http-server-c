@@ -139,28 +139,22 @@ int main()
 	}
 	else if (strstr(request.path, "/echo/") != NULL)
 	{
-		printf("enter else if\n");
+
 		strcpy(response.status_code, HTTP_status_codes.HTTP_OK);
 		strcpy(response.status_message, HTTP_status_messages.OK);
 		strcpy(response.content_type, "text/plain");
 		strcpy(response.body, request.path + strlen("/echo/"));
-		printf("else if 2\n");
 
 		char content_length_buffer[sizeof(response.body)];
 		sprintf(content_length_buffer, "%d", response.content_length);
-		printf("else if 3\n");
 
-		printf("else if 4\n");
-		sprintf(responseStr, "%s %s Content-Type: %s %s Content-Length: %d %s %s %s %s",
+		sprintf(responseStr, "%s Content-Type: %s %s Content-Length: %d %s %s %s %s",
 				response.status_code,
-				CRLF,
 				response.content_type,
 				CRLF,
 				content_length_buffer,
 				CRLF, response.body,
-				CRLF,
-				CRLF);
-		printf("else if 5\n");
+				CRLF, );
 
 		strcat(responseStr, CRLF);
 		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
