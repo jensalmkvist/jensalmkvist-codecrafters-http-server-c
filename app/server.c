@@ -99,8 +99,8 @@ int main()
 
 	// Print request for debugging purposes
  	printf("HTTP Method: %s\n", request.http_method);
-//	printf("Path: %s\n", request.path);
-//	printf("HTTP Protocol: %s\n", request.http_protocol); 
+	printf("Path: %s\n", request.path);
+	printf("HTTP Protocol: %s\n", request.http_protocol); 
 
 	if (strcmp(request.path, "/") == 0) //check if string is only /
 	{
