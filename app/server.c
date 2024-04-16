@@ -179,12 +179,12 @@ int main()
 	}
 	else
 	{
-		strncpy(response.status_code, HTTP_status_codes.HTTP_NOT_FOUND);
+		strcpy(response.status_code, HTTP_status_codes.HTTP_NOT_FOUND);
 		sprintf(responseStr, "%s", response.status_code);
 		strcat(responseStr, CRLF);
 
 		char responseStrSend[strlen(responseStr) + 1];
-		strcpy(responseStrSend, responseStr, sizeof(responseStrSend));
+		strncpy(responseStrSend, responseStr, sizeof(responseStrSend));
 
 		send(client_fd, responseStrSend, sizeof(responseStrSend), 0); // send response to client
 	}
