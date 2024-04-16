@@ -155,6 +155,15 @@ int main()
 		response.body
 		);
 
+				//Debugging prints
+		printf("Status Code: %s\n", response.status_code);
+		printf("Status Message: %s\n", response.status_message);
+		printf("Content Type: %s\n", response.content_type);
+		printf("Body: %s\n", response.body);
+		printf("Content Length: %d\n", response.content_length);
+		printf("content_length_buffer: %s\n", content_length_buffer);
+		printf("Response: %s\n", responseStr);
+
 		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
 		
 		//Debugging prints
