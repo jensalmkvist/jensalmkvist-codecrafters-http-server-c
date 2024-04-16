@@ -159,7 +159,7 @@ int main()
 				response.content_type,
 				CRLF,
 				response.content_length,
-				CRLF, response.body,
+				CRLF, CRLF, response.body,
 				CRLF, CRLF);
 
 		strcat(responseStr, CRLF);
