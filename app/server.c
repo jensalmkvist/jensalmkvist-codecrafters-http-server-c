@@ -147,7 +147,7 @@ int main()
 
 		//char content_length_buffer[strlen(response.body)];
 		sprintf(response.content_length, "%zu", strlen(response.body));
-		printf("Content legth buffer: %zu \n", content_length_buffer);
+		printf("Content legth buffer: %zu \n", response.content_length);
 		printf("Response body: %s \n", response.body);
 		printf("strlen sixe of body: %zu \n", strlen(response.body));
 
