@@ -147,6 +147,7 @@ int main()
 
 		char content_length_buffer[strlen(response.body)];
 		sprintf(content_length_buffer, "%d", response.content_length);
+		printf("%u", content_length_buffer);
 
 		sprintf(responseStr, "%sContent-Type: %s %sContent-Length: %u%s%s%s%s",
 				response.status_code,
