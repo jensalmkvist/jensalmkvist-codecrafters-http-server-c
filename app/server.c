@@ -135,16 +135,10 @@ int main()
 		sprintf(responseStr, "%s", response.status_code);
 		strcat(responseStr, CRLF);
 
-		//Adjust size of responseStr
-		char* temp = realloc(responseStr, strlen(responseStr) + 1);
-		if (temp == NULL){
-			printf("Error reallocating memory\n");
-			return 1;
-		} else {
-			responseStr = temp;
-		}
+		char responseStrSend[strlen(responseStr) + 1];
+		strcpy(responseStrSend, responseStr, sizeof(responseStrSend));
 
-		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
+		send(client_fd, responseStrSend, sizeof(responseStrSend), 0); // send response to client
 	}
 	else if (strstr(request.path, "/echo/") != NULL)
 	{
@@ -160,15 +154,6 @@ int main()
 		printf("Response body: %s \n", response.body);
 		printf("strlen sixe of body: %zu \n", strlen(response.body));
 
-		//Adjust size of responseStr
-		char* temp = realloc(responseStr, strlen(responseStr) + 1);
-		if (temp == NULL){
-			printf("Error reallocating memory\n");
-			return 1;
-		} else {
-			responseStr = temp;
-		}
-
 		sprintf(responseStr, "%sContent-Type: %s %sContent-Length: %u%s%s%s%s",
 				response.status_code,
 				response.content_type,
@@ -178,7 +163,11 @@ int main()
 				CRLF);
 
 		strcat(responseStr, CRLF);
-		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
+
+		char responseStrSend[strlen(responseStr) + 1];
+		strcpy(responseStrSend, responseStr, sizeof(responseStrSend));
+
+		send(client_fd, responseStrSend, sizeof(responseStrSend), 0); // send response to client
 
 		// Debugging prints
 		printf("Status Code: %s\n", response.status_code);
@@ -194,16 +183,10 @@ int main()
 		sprintf(responseStr, "%s", response.status_code);
 		strcat(responseStr, CRLF);
 
-		//Adjust size of responseStr
-		char* temp = realloc(responseStr, strlen(responseStr) + 1);
-		if (temp == NULL){
-			printf("Error reallocating memory\n");
-			return 1;
-		} else {
-			responseStr = temp;
-		}
+		char responseStrSend[strlen(responseStr) + 1];
+		strcpy(responseStrSend, responseStr, sizeof(responseStrSend));
 
-		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
+		send(client_fd, responseStrSend, sizeof(responseStrSend), 0); // send response to client
 	}
 
 	// printf(client_buffer); // print client message for seeing structure
