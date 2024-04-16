@@ -49,7 +49,9 @@ int main()
 		char body[1000];
 	};
 
-	struct Response response;
+	struct Response response = {
+		.http_protocol = "HTTP/1.1"
+	};
 
 	// Disable output buffering
 	setbuf(stdout, NULL);
@@ -130,8 +132,12 @@ int main()
 	}
 	else if(strstr(request.path, "/echo/") != NULL)
 	{
-		printf("Printing path\n");
-		printf(request.path);
+		response.status_code = HTTP_status_codes.HTTP_OK;
+		response.status_message = HTTP_status_messages.OK;
+		response.content_type = "text/plain";
+		response.body = request.path + strlen("/echo/");
+		response.content_length = strlen(response.body);
+		send(client_fd, response, sizeof(response), 0); // send response to client
 	}
 	else
 	{
