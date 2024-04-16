@@ -166,6 +166,7 @@ int main()
 
 		char responseStrSend[strlen(responseStr) + 1];
 		strncpy(responseStrSend, responseStr, sizeof(responseStrSend));
+		printf("ResponseStrSebd: %s \n", responseStrSend);
 
 		send(client_fd, responseStrSend, sizeof(responseStrSend), 0); // send response to client
 
