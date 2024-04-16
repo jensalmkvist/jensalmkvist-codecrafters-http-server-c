@@ -127,14 +127,22 @@ int main()
 	//	printf("Path: %s\n", request.path);
 	//	printf("HTTP Protocol: %s\n", request.http_protocol);
 
-	char responseStr_buffer[2048];
+	char responseStr[2048];
 
 	if (strcmp(request.path, "/") == 0) // check if string is only /
 	{
 		strcpy(response.status_code, HTTP_status_codes.HTTP_OK);
-		char responseStr[strlen(response)];
 		sprintf(responseStr, "%s", response.status_code);
 		strcat(responseStr, CRLF);
+
+		//Adjust size of responseStr
+		char* temp = realloc(responseStr, strlen(responseStr) + 1);
+		if (temp == NULL){
+			printf("Error reallocating memory\n");
+			return 1;
+		} else {
+			responseStr = temp;
+		}
 
 		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
 	}
@@ -152,7 +160,14 @@ int main()
 		printf("Response body: %s \n", response.body);
 		printf("strlen sixe of body: %zu \n", strlen(response.body));
 
-		char responseStr[strlen(response)];
+		//Adjust size of responseStr
+		char* temp = realloc(responseStr, strlen(responseStr) + 1);
+		if (temp == NULL){
+			printf("Error reallocating memory\n");
+			return 1;
+		} else {
+			responseStr = temp;
+		}
 
 		sprintf(responseStr, "%sContent-Type: %s %sContent-Length: %u%s%s%s%s",
 				response.status_code,
@@ -176,9 +191,17 @@ int main()
 	else
 	{
 		strcpy(response.status_code, HTTP_status_codes.HTTP_NOT_FOUND);
-		char responseStr[strlen(response)];
 		sprintf(responseStr, "%s", response.status_code);
 		strcat(responseStr, CRLF);
+
+		//Adjust size of responseStr
+		char* temp = realloc(responseStr, strlen(responseStr) + 1);
+		if (temp == NULL){
+			printf("Error reallocating memory\n");
+			return 1;
+		} else {
+			responseStr = temp;
+		}
 
 		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
 	}
