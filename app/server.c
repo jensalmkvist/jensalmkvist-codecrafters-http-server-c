@@ -148,7 +148,7 @@ int main()
 				HTTP_status_codes.HTTP_OK,
 				"text/plain",
 				CRLF,
-				"4", // content length
+				len, // content length
 				CRLF, CRLF,
 				body, // content body
 				CRLF, CRLF, CRLF);
