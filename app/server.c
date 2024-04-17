@@ -147,8 +147,7 @@ int main()
 		"5",//content length
 		CRLF, CRLF,
 		"body", //content body
-		CRLF, CRLF;
-		);
+		CRLF, CRLF);
 	}
 	else
 	{
