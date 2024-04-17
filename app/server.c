@@ -135,11 +135,11 @@ int main()
 		char *posStart = strstr(client_buffer, "/echo/") + strlen("/echo/");
 		char *posEnd = strstr(posStart, " HTTP/1.1");
 		size_t len = posEnd - posStart;
-		char body[len + 1];
+		char body[len];
 		printf("len: %zu\n", len);
 
 		strncpy(body, posStart, len);
-		body[len] = '\0';
+		//body[len] = '\0';
 		printf("body: %s\n", body);
 
 	/*	sprintf(responseStr, "%sContent-Type: %s %sContent-Length: %s%s%s%s%s%s",
