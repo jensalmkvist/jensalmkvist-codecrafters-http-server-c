@@ -152,7 +152,7 @@ int main()
 				CRLF, CRLF, CRLF);
 				
 		printf("Response:\n%s\n", responseStr);
-		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
+		//send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
 
 	}
 	else
