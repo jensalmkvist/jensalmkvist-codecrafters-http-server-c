@@ -147,7 +147,8 @@ int main()
 	}
 	else
 	{
-		/* code */
+		sprintf(responseStr, "%s%s", HTTP_status_codes.HTTP_NOT_FOUND, CRLF);
+		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
 	}
 	
 
