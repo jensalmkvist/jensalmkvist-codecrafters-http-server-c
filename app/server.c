@@ -131,6 +131,12 @@ int main()
 	}
 	else if (strstr(client_buffer, "/echo/") != NULL)
 	{
+
+		char* posStart = strstr(client_buffer, "/echo/") + strlen("/echo/");
+		char* posEnd = strstr(posStart, " HTTP/1.1");
+
+		printf("posStart: %s\n", posStart);
+
 		sprintf(responseStr, "%sContent-Type: %s %sContent-Length: %s%s%s%s%s",
 				HTTP_status_codes.HTTP_OK,
 				"text/plain",
