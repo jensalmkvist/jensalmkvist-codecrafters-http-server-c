@@ -135,10 +135,10 @@ int main()
 				HTTP_status_codes.HTTP_OK,
 				"text/plain",
 				CRLF,
-				"5", // content length
+				"4", // content length
 				CRLF, CRLF,
 				"body", // content body
-				CRLF, CRLF);
+				CRLF, CRLF, CRLF);
 
 		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
 		printf("Response:\n%s\n", responseStr);
