@@ -135,7 +135,7 @@ int main()
 		char* posStart = strstr(client_buffer, "/echo/") + strlen("/echo/");
 		char* posEnd = strstr(posStart, " HTTP/1.1");
 		size_t len = posEnd - posStart;
-		char body[len];
+		char body[len + 1];
 		printf("len: %zu\n", len);
 
 		strncpy(body, posStart, len);
