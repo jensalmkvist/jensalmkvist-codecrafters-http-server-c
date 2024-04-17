@@ -13,7 +13,6 @@ int main()
 	char CRLF[4] = "\r\n"; // carriage return line feed
 	// variable declarations
 
-
 	struct HTTP_STATUS_CODES
 	{
 		char HTTP_NOT_FOUND[30];
@@ -120,7 +119,6 @@ int main()
 
 	printf("Printing client buffer\n%s\n", client_buffer);
 
-
 	char responseStr[1024];
 
 	// State machine for handling different requests
@@ -133,14 +131,14 @@ int main()
 	}
 	else if (strstr(client_buffer, "/echo/") != NULL)
 	{
-		sprintf(responseStr,"%sContent-Type: %s %sContent-Length: %s%s%s%s%s",
-		HTTP_status_codes.HTTP_OK, 
-		"text/plain",
-		CRLF,
-		"5",//content length
-		CRLF, CRLF,
-		"body", //content body
-		CRLF, CRLF);
+		sprintf(responseStr, "%sContent-Type: %s %sContent-Length: %s%s%s%s%s",
+				HTTP_status_codes.HTTP_OK,
+				"text/plain",
+				CRLF,
+				"5", // content length
+				CRLF, CRLF,
+				"body", // content body
+				CRLF, CRLF);
 
 		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
 		printf("Response:\n%s\n", responseStr);
@@ -149,9 +147,8 @@ int main()
 	{
 		sprintf(responseStr, "%s%s", HTTP_status_codes.HTTP_NOT_FOUND, CRLF);
 		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
+		printf("Response:\n%s\n", responseStr);
 	}
-	
-
 
 	/*if (strcmp(request.path, "/") == 0) // check if string is only /
 	{
@@ -235,7 +232,6 @@ int main()
 
 		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
 	}*/
-
 
 	close(server_fd);
 
