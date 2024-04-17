@@ -120,14 +120,6 @@ int main()
 
 	printf("Printing client buffer\n%s\n", client_buffer);
 
-	// stage 3 code
-	sscanf(client_buffer, "%s %s %s", request.http_method, request.path, request.http_protocol); // parse client message
-
-	// Print request for debugging purposes
-//	printf("HTTP Method: %s\n", request.http_method);
-//	printf("Path: %s\n", request.path);
-//	printf("HTTP Protocol: %s\n", request.http_protocol);
-
 
 	char responseStr[1024];
 
@@ -135,8 +127,9 @@ int main()
 
 	if (strstr(client_buffer, "GET / ") != NULL) // check if path after "GET" is only "/"
 	{
-		sprintf(responseStr, "%s%S", HTTP_status_codes.HTTP_OK, CRLF);
+		sprintf(responseStr, "%s%s", HTTP_status_codes.HTTP_OK, CRLF);
 		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
+		printf("Response:\n%s\n", responseStr);
 	}
 	else if (strstr(client_buffer, "/echo/") != NULL)
 	{
