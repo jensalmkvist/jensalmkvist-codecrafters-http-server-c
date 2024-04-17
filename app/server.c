@@ -142,8 +142,8 @@ int main()
 		body[len] = '\0';
 		printf("body: %s\n", body);
 
-		/*
-				sprintf(responseStr, "%sContent-Type: %s %sContent-Length: %s%s%s%s%s",
+		
+				sprintf(responseStr, "%sContent-Type: %s %sContent-Length: %s%s%s%s%s%s",
 						HTTP_status_codes.HTTP_OK,
 						"text/plain",
 						CRLF,
@@ -151,7 +151,7 @@ int main()
 						CRLF, CRLF,
 						body, // content body
 						CRLF, CRLF, CRLF);
-		*/
+		
 				
 		printf("Response:\n%s\n", responseStr);
 		//send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
