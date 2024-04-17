@@ -12,6 +12,8 @@ int main()
 
 	char CRLF[4] = "\r\n"; // carriage return line feed
 	// variable declarations
+
+
 	struct HTTP_STATUS_CODES
 	{
 		char HTTP_NOT_FOUND[30];
@@ -116,21 +118,35 @@ int main()
 		return -1;
 	}
 
-	printf("Printing client buffer %s\n", client_buffer);
-
-	// This line is not used for stage 3 and after
-	// send(client_fd, HTTP_status_codes.HTTP_OK, sizeof(HTTP_status_codes.HTTP_OK), 0); // send response to client
+	printf("Printing client buffer\n %s\n", client_buffer);
 
 	// stage 3 code
 	sscanf(client_buffer, "%s %s %s", request.http_method, request.path, request.http_protocol); // parse client message
 
 	// Print request for debugging purposes
-	printf("HTTP Method: %s\n", request.http_method);
-	printf("Path: %s\n", request.path);
-	printf("HTTP Protocol: %s\n", request.http_protocol);
+//	printf("HTTP Method: %s\n", request.http_method);
+//	printf("Path: %s\n", request.path);
+//	printf("HTTP Protocol: %s\n", request.http_protocol);
 
 
 	char responseStr[1024];
+
+	// State machine for handling different requests
+
+	if (strcmp(path, "/") == 0)
+	{
+		sprintf(responseStr, "%s%S", HTTP_status_codes.HTTP_OK, CRLF);
+	}
+	else if (/* condition */)
+	{
+		/* code */
+	}
+	else
+	{
+		/* code */
+	}
+	
+
 
 	if (strcmp(request.path, "/") == 0) // check if string is only /
 	{
@@ -196,12 +212,12 @@ int main()
 		strcat(responseStr, CRLF);
 
 		// Debugging prints
-		printf("Status Code: %s\n", response.status_code);
-		printf("Status Message: %s\n", response.status_message);
-		printf("Content Type: %s\n", response.content_type);
-		printf("Body: %s\n", response.body);
-		printf("Content Length: %s\n", response.content_length);
-		printf("Response:\n%s\n", responseStr);
+		// printf("Status Code: %s\n", response.status_code);
+		// printf("Status Message: %s\n", response.status_message);
+		// printf("Content Type: %s\n", response.content_type);
+		// printf("Body: %s\n", response.body);
+		// printf("Content Length: %s\n", response.content_length);
+		// printf("Response:\n%s\n", responseStr);
 
 		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
 	}
