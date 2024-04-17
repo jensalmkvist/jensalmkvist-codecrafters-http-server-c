@@ -118,7 +118,7 @@ int main()
 		return -1;
 	}
 
-	printf("Printing client buffer\n %s\n", client_buffer);
+	printf("Printing client buffer\n%s\n", client_buffer);
 
 	// stage 3 code
 	sscanf(client_buffer, "%s %s %s", request.http_method, request.path, request.http_protocol); // parse client message
@@ -133,13 +133,22 @@ int main()
 
 	// State machine for handling different requests
 
-	if (1)//(strcmp(path, "/") == 0)
+	if (strstr(client_buffer, "GET / ") != NULL) // check if path after "GET" is only "/"
 	{
 		sprintf(responseStr, "%s%S", HTTP_status_codes.HTTP_OK, CRLF);
+		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
 	}
-	else if (1)
+	else if (strstr(client_buffer, "/echo/") != NULL)
 	{
-		/* code */
+		sprintf(responseStr,"%sContent-Type: %s %sContent-Length: %s%s%s%s%s",
+		HTTP_status_codes.HTTP_OK, 
+		"text/plain",
+		CRLF,
+		"5",//content length
+		CRLF, CRLF,
+		"body", //content body
+		CRLF, CRLF;
+		)
 	}
 	else
 	{
@@ -148,7 +157,7 @@ int main()
 	
 
 
-	if (strcmp(request.path, "/") == 0) // check if string is only /
+	/*if (strcmp(request.path, "/") == 0) // check if string is only /
 	{
 		strcpy(response.status_code, HTTP_status_codes.HTTP_OK);
 		sprintf(responseStr, "%s", response.status_code);
@@ -229,9 +238,8 @@ int main()
 		strcat(responseStr, CRLF);
 
 		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
-	}
+	}*/
 
-	// printf(client_buffer); // print client message for seeing structure
 
 	close(server_fd);
 
