@@ -137,7 +137,7 @@ int main()
 	{
 		sprintf(responseStr, "%s%S", HTTP_status_codes.HTTP_OK, CRLF);
 	}
-	else if (/* condition */)
+	else if (1)
 	{
 		/* code */
 	}
