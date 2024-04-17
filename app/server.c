@@ -136,6 +136,7 @@ int main()
 		char* posEnd = strstr(posStart, " HTTP/1.1");
 
 		printf("posStart: %s\n", posStart);
+		printf("posEnd: %s\n", posEnd);
 
 		sprintf(responseStr, "%sContent-Type: %s %sContent-Length: %s%s%s%s%s",
 				HTTP_status_codes.HTTP_OK,
