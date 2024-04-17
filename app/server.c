@@ -139,6 +139,7 @@ int main()
 		printf("len: %zu\n", len);
 
 		strncpy(body, posStart, len);
+		body[len] = '\0';
 		printf("body: %s\n", body);
 
 		sprintf(responseStr, "%sContent-Type: %s %sContent-Length: %s%s%s%s%s",
