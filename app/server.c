@@ -141,6 +141,9 @@ int main()
 		CRLF, CRLF,
 		"body", //content body
 		CRLF, CRLF);
+
+		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
+		printf("Response:\n%s\n", responseStr);
 	}
 	else
 	{
