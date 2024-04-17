@@ -133,7 +133,7 @@ int main()
 
 	// State machine for handling different requests
 
-	if (strcmp(path, "/") == 0)
+	if (1)//(strcmp(path, "/") == 0)
 	{
 		sprintf(responseStr, "%s%S", HTTP_status_codes.HTTP_OK, CRLF);
 	}
