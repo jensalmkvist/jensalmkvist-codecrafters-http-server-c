@@ -136,6 +136,7 @@ int main()
 		char* posEnd = strstr(posStart, " HTTP/1.1");
 		size_t len = posEnd - posStart;
 		char body[len];
+		printf("len: %zu\n", len);
 
 		strncpy(body, posStart, len);
 		printf("body: %s\n", body);
@@ -149,7 +150,7 @@ int main()
 				CRLF,
 				"4", // content length
 				CRLF, CRLF,
-				"body", // content body
+				body, // content body
 				CRLF, CRLF, CRLF);
 
 		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
