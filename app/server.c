@@ -134,6 +134,11 @@ int main()
 
 		char* posStart = strstr(client_buffer, "/echo/") + strlen("/echo/");
 		char* posEnd = strstr(posStart, " HTTP/1.1");
+		size_t len = posEnd - posStart;
+		char body[len];
+
+		strncpy(body, posStart, len);
+		printf("body: %s\n", body);
 
 		printf("posStart: %s\n", posStart);
 		printf("posEnd: %s\n", posEnd);
