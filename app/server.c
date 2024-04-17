@@ -132,8 +132,8 @@ int main()
 	else if (strstr(client_buffer, "/echo/") != NULL)
 	{
 
-		char* posStart = strstr(client_buffer, "/echo/") + strlen("/echo/");
-		char* posEnd = strstr(posStart, " HTTP/1.1");
+		char *posStart = strstr(client_buffer, "/echo/") + strlen("/echo/");
+		char *posEnd = strstr(posStart, " HTTP/1.1");
 		size_t len = posEnd - posStart;
 		char body[len + 1];
 		printf("len: %zu\n", len);
@@ -142,20 +142,29 @@ int main()
 		body[len] = '\0';
 		printf("body: %s\n", body);
 
-		
-				sprintf(responseStr, "%sContent-Type: %s %sContent-Length: %s%s%s%s%s%s",
-						HTTP_status_codes.HTTP_OK,
-						"text/plain",
-						CRLF,
-						len, // content length
-						CRLF, CRLF,
-						body, // content body
-						CRLF, CRLF, CRLF);
-		
-				
-		printf("Response:\n%s\n", responseStr);
-		//send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
+	/*	sprintf(responseStr, "%sContent-Type: %s %sContent-Length: %s%s%s%s%s%s",
+				HTTP_status_codes.HTTP_OK,
+				"text/plain",
+				CRLF,
+				len, // content length
+				CRLF, CRLF,
+				body, // content body
+				CRLF, CRLF, CRLF);*/
 
+		strcat(responseStr, HTTP_status_codes.HTTP_OK);
+		strcat(responseStr, "Content-Type: text/plain\r\n");
+		strcat(responseStr, CRLF);
+		strcat(responseStr, "Content-Length: ");
+		strcat(responseStr, len);
+		strcat(responseStr, CRLF);
+		strcat(responseStr, CRLF);
+		strcat(responseStr, body);
+		strcat(responseStr, CRLF);
+		strcat(responseStr, CRLF);
+		strcat(responseStr, CRLF);
+
+		printf("Response:\n%s\n", responseStr);
+		// send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
 	}
 	else
 	{
