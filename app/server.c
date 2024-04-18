@@ -9,21 +9,7 @@
 
 int main(int argc, char *argv[])
 {
-	int argcTest = argc;
-
-	printf("argc: %d\n", argc);
-
-	printf("argcTest: %d\n", argcTest);
-	// printing the arguments for main
-
-	int i;
-	printf("%d\n", argc);
-	for (i = 0; i < argc - 1; i++)
-	{
-		printf("%d %s\n", i, argv[i]); // remove * from here
-	}
-
-	// parsin main arguments
+	// parse main arguments
 	char *directory = NULL;
 	if (argc > 1)
 	{
@@ -218,6 +204,7 @@ int main(int argc, char *argv[])
 			}
 			else if (strstr(client_buffer, "GET /files/") != NULL)
 			{
+				printf("This is here the files shouldb read and a response created and sent\n");
 			}
 			else
 			{
