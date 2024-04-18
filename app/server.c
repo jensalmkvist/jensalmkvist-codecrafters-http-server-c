@@ -10,10 +10,10 @@
 int main(int argc, char *argv[])
 {
 	//printing the arguments for main
-	int opt;
-
-	opt = getopt_long(argc, argv, "directory");
-	printf("opt: %d\n", opt);
+	for (int i = 0; i < argc; i++)
+	{
+		printf("argv[%d]: %s\n", i, argv[i]);
+	}
 	
 
 
