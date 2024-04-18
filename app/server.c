@@ -204,27 +204,25 @@ int main(int argc, char *argv[])
 			}
 			else if (strstr(client_buffer, "GET /files/") != NULL)
 			{
-				//extract file path from client buffer and construct the full file path
+				// extract file path from client buffer and construct the full file path
 				char *posStart = strstr(client_buffer, "GET /files/") + strlen("GET /files/");
 				char *posEnd = strstr(posStart, "HTTP/1.1");
 				size_t len = posEnd - posStart;
-				
-				char *filePath = "/";
-				strncpy(filePath, directory, strlen(directory));
-				strcat(filePath, posStart[len]);
+				char fileName[len];
+				strncpy(fileName, posStart, len);
+
 				fflush(stdout);
-				printf("File Path: %s\n", filePath);
+				printf("File name: %s\n", fileName);
 				if (0) // check if file exists in directory
 				{
 					/* code */
 				}
 				else
 				{
-				sprintf(responseStr, "%s%s", HTTP_status_codes.HTTP_NOT_FOUND, CRLF);
-				send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
-				printf("Response:\n%s\n", responseStr);
+					sprintf(responseStr, "%s%s", HTTP_status_codes.HTTP_NOT_FOUND, CRLF);
+					send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
+					printf("Response:\n%s\n", responseStr);
 				}
-				
 			}
 			else
 			{
