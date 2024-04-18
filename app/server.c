@@ -104,90 +104,105 @@ int main()
 	printf("Waiting for a client to connect...\n");
 	client_addr_len = sizeof(client_addr);
 
-	// Stage 2 code
-	int client_fd = accept(server_fd, (struct sockaddr *)&client_addr, &client_addr_len); // create file descriptor for client
-	printf("Client connected\n");
-
-	// declare buffer for client message
-	char client_buffer[2048];
-
-	if (read(client_fd, client_buffer, sizeof(client_buffer)) < 0)
-	{ // read from client
-		printf("Error reading from client: %s\n", strerror(errno));
-		return -1;
-	}
-
-	printf("Printing client buffer\n%s\n", client_buffer);
-
-	char responseStr[1024];
-
-	// If case for handling the different stages
-
-	if (strstr(client_buffer, "GET / ") != NULL) // check if path after "GET" is only "/"
+	// while loop for handling concurrent connections
+	while (1)
 	{
-		sprintf(responseStr, "%s%s", HTTP_status_codes.HTTP_OK, CRLF);
-		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
-		printf("Response:\n%s\n", responseStr);
-	}
-	else if (strstr(client_buffer, "/echo/") != NULL)
-	{
-		//extract the text after /ecjo/ and before HTTP/1.1
-		char *posStart = strstr(client_buffer, "/echo/") + strlen("/echo/");
-		char *posEnd = strstr(posStart, " HTTP/1.1");
-		size_t len = posEnd - posStart;
-		char body[len];
-		printf("len: %zu\n", len);
+		int client_fd = accept(server_fd, (struct sockaddr *)&client_addr, &client_addr_len); // create file descriptor for client
+		printf("Client connected\n");
 
-		strncpy(body, posStart, len);
-		body[len] = '\0';
-		printf("body: %s\n", body);
+		if (0 == fork()) //create fork for handling multiple clients concurrently
+		{
+			close(server_fd);
 
-		// create response string
-		sprintf(responseStr, "%sContent-Type: %s%sContent-Length: %zu%s%s%s%s%s%S",
-				HTTP_status_codes.HTTP_OK,
-				"text/plain",
-				CRLF,
-				len, // content length
-				CRLF, CRLF,
-				body, // content body
-				CRLF, CRLF, CRLF);
+			
+			// declare buffer for client message
+			char client_buffer[2048];
 
-		// send response to client
-		printf("Response:\n%s\n", responseStr); //debug print
-		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
-	}
-	else if (strstr(client_buffer, "GET /user-agent") != NULL)
-	{
-		//extract the text after /ecjo/ and before HTTP/1.1
-		char *posStart = strstr(client_buffer, "User-Agent: ") + strlen("User-Agent: ");
-		char *posEnd = strstr(posStart, CRLF);
-		size_t len = posEnd - posStart;
-		char body[len];
-		printf("len: %zu\n", len);
+			if (read(client_fd, client_buffer, sizeof(client_buffer)) < 0)
+			{ // read from client
+				printf("Error reading from client: %s\n", strerror(errno));
+				return -1;
+			}
 
-		strncpy(body, posStart, len);
-		body[len] = '\0';
-		printf("body: %s\n", body);
+			printf("Printing client buffer\n%s\n", client_buffer);
 
-		// create response string
-		sprintf(responseStr, "%sContent-Type: %s%sContent-Length: %zu%s%s%s%s%s%S",
-				HTTP_status_codes.HTTP_OK,
-				"text/plain",
-				CRLF,
-				len, // content length
-				CRLF, CRLF,
-				body, // content body
-				CRLF, CRLF, CRLF);
+			char responseStr[1024];
 
-		// send response to client
-		printf("Response:\n%s\n", responseStr); //debug print
-		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
-	}
-	else
-	{
-		sprintf(responseStr, "%s%s", HTTP_status_codes.HTTP_NOT_FOUND, CRLF);
-		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
-		printf("Response:\n%s\n", responseStr);
+			// If case for handling the different stages
+
+			if (strstr(client_buffer, "GET / ") != NULL) // check if path after "GET" is only "/"
+			{
+				sprintf(responseStr, "%s%s", HTTP_status_codes.HTTP_OK, CRLF);
+				send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
+				printf("Response:\n%s\n", responseStr);
+			}
+			else if (strstr(client_buffer, "/echo/") != NULL)
+			{
+				// extract the text after /ecjo/ and before HTTP/1.1
+				char *posStart = strstr(client_buffer, "/echo/") + strlen("/echo/");
+				char *posEnd = strstr(posStart, " HTTP/1.1");
+				size_t len = posEnd - posStart;
+				char body[len];
+				printf("len: %zu\n", len);
+
+				strncpy(body, posStart, len);
+				body[len] = '\0';
+				printf("body: %s\n", body);
+
+				// create response string
+				sprintf(responseStr, "%sContent-Type: %s%sContent-Length: %zu%s%s%s%s%s%S",
+						HTTP_status_codes.HTTP_OK,
+						"text/plain",
+						CRLF,
+						len, // content length
+						CRLF, CRLF,
+						body, // content body
+						CRLF, CRLF, CRLF);
+
+				// send response to client
+				printf("Response:\n%s\n", responseStr);				  // debug print
+				send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
+			}
+			else if (strstr(client_buffer, "GET /user-agent") != NULL)
+			{
+				// extract the text after /ecjo/ and before HTTP/1.1
+				char *posStart = strstr(client_buffer, "User-Agent: ") + strlen("User-Agent: ");
+				char *posEnd = strstr(posStart, CRLF);
+				size_t len = posEnd - posStart;
+				char body[len];
+				printf("len: %zu\n", len);
+
+				strncpy(body, posStart, len);
+				body[len] = '\0';
+				printf("body: %s\n", body);
+
+				// create response string
+				sprintf(responseStr, "%sContent-Type: %s%sContent-Length: %zu%s%s%s%s%s%S",
+						HTTP_status_codes.HTTP_OK,
+						"text/plain",
+						CRLF,
+						len, // content length
+						CRLF, CRLF,
+						body, // content body
+						CRLF, CRLF, CRLF);
+
+				// send response to client
+				printf("Response:\n%s\n", responseStr);				  // debug print
+				send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
+			}
+			else
+			{
+				sprintf(responseStr, "%s%s", HTTP_status_codes.HTTP_NOT_FOUND, CRLF);
+				send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
+				printf("Response:\n%s\n", responseStr);
+			}
+
+			exit(0);
+		}
+		else
+		{
+			close(client_fd);
+		}
 	}
 
 	close(server_fd);
