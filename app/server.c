@@ -218,7 +218,7 @@ int main(int argc, char *argv[])
 				char completeFilePath[strlen(directory) + strlen(fileName)];
 				strcpy(completeFilePath, directory);
 				strncpy(completeFilePath + strlen(directory), fileName, strlen(fileName));
-				strcat(completeFilePath, "\0");
+				completeFilePath[strlen(directory) + strlen(fileName)] = '\0';
 				printf("Complete file path: %s\n", completeFilePath);
 
 				// construct the full file path
