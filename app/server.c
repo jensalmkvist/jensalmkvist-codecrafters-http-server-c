@@ -204,8 +204,17 @@ int main(int argc, char *argv[])
 			}
 			else if (strstr(client_buffer, "GET /files/") != NULL)
 			{
-				printf("This is where the files should read and a response created and sent\n");
-				if (0)
+				//extract file path from client buffer and construct the full file path
+				char *posStart = strstr(client_buffer, "GET /files/") + strlen("GET /files/");
+				char *posEnd = strstr(posStart, "HTTP/1.1");
+				size_t len = posEnd - posStart;
+				
+				char *filePath = "/";
+				strncpy(filePath, directory, strlen(directory));
+				strcat(filePath, posStart[len]);
+				fflush(stdout);
+				printf("File Path: %s\n", filePath);
+				if (0) // check if file exists in directory
 				{
 					/* code */
 				}
