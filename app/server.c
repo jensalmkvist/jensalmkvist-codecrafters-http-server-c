@@ -14,17 +14,12 @@ int main(int argc, char *argv[])
 	printf("argcTest: %d\n", argcTest);
 	// printing the arguments for main
 
-	for (int i = 0; i < argc; i++)
-	{
-		printf("argv[%d] = %s\n", i, argv[i]);
-	}
-
-	int i;
-	printf("%d\n", argc);
-	for (i = 1; i < argc; i++)
-	{
-		printf("%s", argv[i]);
-	}
+	    int i;
+    printf("%d\n",argc);
+    for(i=0;i<argc-1;i++)
+    {
+        printf("%s",argv[i]);
+    }
 
 	char CRLF[4] = "\r\n"; // carriage return line feed
 	// variable declarations
