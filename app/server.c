@@ -15,6 +15,8 @@ int main(int argc, char *argv[])
 		printf("argv[%d]: %s\n", i, argv[i]);
 	}
 
+	printf("argv: %s", argv);
+
 	printf("argc: %d\n", argc);
 	
 
