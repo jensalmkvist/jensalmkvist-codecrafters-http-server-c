@@ -131,7 +131,7 @@ int main(int argc, char *argv[])
 				return -1;
 			}
 
-			printf("Printing client buffer\n%s\n", client_buffer);
+			//printf("Printing client buffer\n%s\n", client_buffer);
 
 			char responseStr[1024];
 
