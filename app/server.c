@@ -24,6 +24,7 @@ int main(int argc, char *argv[])
 	}
 
 	char CRLF[4] = "\r\n"; // carriage return line feed
+	char doubleCRLF[8] = "\r\n\r\n";
 	// variable declarations
 
 	struct HTTP_STATUS_CODES
@@ -290,29 +291,26 @@ int main(int argc, char *argv[])
 				if (file != NULL) // check if file exists in directory
 				{
 					printf("File exists\n");
-					fseek(file, 0, SEEK_END);
-					long fileSize = ftell(file);
-					rewind(file);
 
-					char body[fileSize];
-					size_t bodyLen = fread(body, 1, fileSize, file);
-					body[bodyLen] = '\0';
+					// extract the text in body
+					char *posStart = strstr(client_buffer, doubleCRLF) + strlen(doubleCRLF);
+					char *posEnd = strstr(posStart, doubleCRLF);
+					size_t len = posEnd - posStart;
+					char fileContents[len];
+					printf("len: %zu\n", len);
+
+					strncpy(fileContents, posStart, len);
+					fileContents[len] = '\0';
+
+					fprintf(file, "%s", fileContents);
+					printf("fileContents: %s\n", fileContents);
 
 					fclose(file);
 
 					// create response string
-					sprintf(responseStr, "%sContent-Type: %s%sContent-Length: %zu%s%s%s%s%s%S",
-							HTTP_status_codes.HTTP_CREATED,
-							"application/octet-stream",
-							CRLF,
-							bodyLen, // content length
-							CRLF, CRLF,
-							body, // content body
-							CRLF, CRLF, CRLF);
-
-					// send response to client
-					printf("Response:\n%s\n", responseStr);				  // debug print
+					sprintf(responseStr, "%s%s", HTTP_status_codes.HTTP_CREATED, CRLF);
 					send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
+					printf("Response:\n%s\n", responseStr);
 				}
 
 				else
@@ -320,7 +318,7 @@ int main(int argc, char *argv[])
 					sprintf(responseStr, "%s%s", HTTP_status_codes.HTTP_NOT_FOUND, CRLF);
 					send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
 					printf("Response:\n%s\n", responseStr);
-				}*/
+				}
 			}
 			else
 			{
