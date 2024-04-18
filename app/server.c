@@ -33,11 +33,10 @@ int main(int argc, char *argv[])
 		char HTTP_CREATED[30];
 	};
 
-	struct HTTP_STATUS_CODES HTTP_status_codes =
-		{
-			"HTTP/1.1 404 Not Found\r\n",
-			"HTTP/1.1 200 OK\r\n",
-			"HTTP/1.1 201 Created\r\n"};
+	struct HTTP_STATUS_CODES HTTP_status_codes = {
+		"HTTP/1.1 404 Not Found\r\n",
+		"HTTP/1.1 200 OK\r\n",
+		"HTTP/1.1 201 Created\r\n"};
 
 	struct HTTP_STATUS_MESSAGES
 	{
@@ -283,6 +282,8 @@ int main(int argc, char *argv[])
 				strncpy(completeFilePath + strlen(directory), fileName, strlen(fileName));
 				completeFilePath[strlen(directory) + strlen(fileName)] = '\0';
 				printf("Complete file path: %s\n", completeFilePath);
+				fflush(stdout);
+				printf(client_buffer);
 
 				/*FILE *file = fopen(completeFilePath, "r");
 
