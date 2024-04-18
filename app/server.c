@@ -276,15 +276,15 @@ int main(int argc, char *argv[])
 				fileName[len] = '\0';
 
 				fflush(stdout);
-				printf("File name: %s\n", fileName);
+				//printf("File name: %s\n", fileName);
 
 				char completeFilePath[strlen(directory) + strlen(fileName)];
 				strcpy(completeFilePath, directory);
 				strncpy(completeFilePath + strlen(directory), fileName, strlen(fileName));
 				completeFilePath[strlen(directory) + strlen(fileName)] = '\0';
-				printf("Complete file path: %s\n", completeFilePath);
+				//printf("Complete file path: %s\n", completeFilePath);
 				fflush(stdout);
-				printf(client_buffer);
+				//printf(client_buffer);
 
 				FILE *file = fopen(completeFilePath, "w");
 
@@ -297,7 +297,7 @@ int main(int argc, char *argv[])
 					char *posEnd = strstr(posStart, doubleCRLF);
 					size_t len = posEnd - posStart;
 					char fileContents[len];
-					printf("len: %zu\n", len);
+					//printf("len: %zu\n", len);
 
 					fflush(stdout);
 					strncpy(fileContents, posStart, len);
