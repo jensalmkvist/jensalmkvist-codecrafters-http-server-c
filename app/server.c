@@ -286,7 +286,7 @@ int main(int argc, char *argv[])
 				fflush(stdout);
 				//printf(client_buffer);
 
-				FILE *file = fopen(completeFilePath, "w");
+				FILE *file = fopen(completeFilePath, "wb");
 
 				if (file != NULL) // check if file exists in directory
 				{
@@ -299,7 +299,6 @@ int main(int argc, char *argv[])
 					char fileContents[len];
 					//printf("len: %zu\n", len);
 
-					fflush(stdout);
 					strncpy(fileContents, posStart, len);
 					fileContents[len] = '\0';
 
