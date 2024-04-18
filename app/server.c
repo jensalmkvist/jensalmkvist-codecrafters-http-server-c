@@ -9,15 +9,16 @@
 
 int main(int argc, char *argv[])
 {
+	int argcTest = argc;
+
+	printf("argcTest: %d\n", argcTest);
 	//printing the arguments for main
 	for (int i = 0; i < argc; i++)
 	{
 		printf("argv[%d]: %s\n", i, argv[i]);
 	}
 
-	printf("argv: %s", argv);
 
-	printf("argc: %d\n", argc);
 	
 
 
