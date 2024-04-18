@@ -293,7 +293,7 @@ int main(int argc, char *argv[])
 					printf("File exists\n");
 
 					char *fileContent = strstr(client_buffer, "\r\n\r\n") + strlen("\r\n\r\n");
-					fwrite("fileContent", 1, strlen(fileContent), file);
+					fwrite(fileContent, 1, strlen(fileContent), file);
 					
 
 					fclose(file);
