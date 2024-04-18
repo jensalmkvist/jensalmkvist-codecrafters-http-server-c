@@ -33,11 +33,12 @@ int main(int argc, char *argv[])
 		char HTTP_CREATED[30];
 	};
 
-	struct HTTP_STATUS_CODES HTTP_status_codes = {
+	struct HTTP_STATUS_CODES HTTP_status_codes =
+	{
 		"HTTP/1.1 404 Not Found\r\n",
-		"HTTP/1.1 200 OK\r\n"};
-	"HTTP/1.1 201 Created\r\n"
-};
+		"HTTP/1.1 200 OK\r\n",
+		"HTTP/1.1 201 Created\r\n";
+	};
 
 struct HTTP_STATUS_MESSAGES
 {
