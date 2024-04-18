@@ -293,7 +293,7 @@ int main(int argc, char *argv[])
 					printf("File exists\n");
 
 					// extract the text in body
-					char *posStart = strstr(client_buffer, doubleCRLF) + strlen(doubleCRLF);
+					char *posStart = strstr(client_buffer, "\r\n\r\n") + strlen("\r\n\r\n");
 					char *posEnd = strstr(posStart, doubleCRLF);
 					size_t len = posEnd - posStart;
 					char fileContents[len];
