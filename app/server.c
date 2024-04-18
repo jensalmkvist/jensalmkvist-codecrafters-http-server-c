@@ -215,7 +215,7 @@ int main(int argc, char *argv[])
 				fflush(stdout);
 				printf("File name: %s\n", fileName);
 
-				char completeFilePath[strlen(directory) + strlen(fileName) + 1];
+				char completeFilePath[strlen(directory) + strlen(fileName)];
 				strcpy(completeFilePath, directory);
 				strncpy(completeFilePath + strlen(directory), fileName, strlen(fileName));
 				strcat(completeFilePath, "\0");
