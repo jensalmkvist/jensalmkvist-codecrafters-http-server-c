@@ -7,8 +7,13 @@
 #include <errno.h>
 #include <unistd.h>
 
-int main()
+int main(int argc, char *argv[])
 {
+	//printing the arguments for main
+	int opt;
+
+	opt = getopt_long(argc, argv, "directory");
+
 
 	char CRLF[4] = "\r\n"; // carriage return line feed
 	// variable declarations
@@ -189,6 +194,10 @@ int main()
 				// send response to client
 				printf("Response:\n%s\n", responseStr);				  // debug print
 				send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
+			}
+			else if(strstr(client_buffer, "GET /files/") != NULL)
+			{
+				
 			}
 			else
 			{
