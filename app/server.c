@@ -23,6 +23,20 @@ int main(int argc, char *argv[])
 		printf("%d %s\n", i, argv[i]); // remove * from here
 	}
 
+	// parsin main arguments
+	char *directory = NULL;
+	if (argc > 1)
+	{
+		for (int i = 0; i < argc; i++)
+		{
+			if (strcmp(argv[i], "--directory") == 0)
+			{
+				directory = argv[i + 1];
+			}
+		}
+		printf("Directory: %s\n", directory);
+	}
+
 	char CRLF[4] = "\r\n"; // carriage return line feed
 	// variable declarations
 
