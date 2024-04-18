@@ -121,7 +121,7 @@ int main()
 
 	char responseStr[1024];
 
-	// State machine for handling different requests
+	// If case for handling the different stages
 
 	if (strstr(client_buffer, "GET / ") != NULL) // check if path after "GET" is only "/"
 	{
@@ -131,7 +131,7 @@ int main()
 	}
 	else if (strstr(client_buffer, "/echo/") != NULL)
 	{
-
+		//extract the text after /ecjo/ and before HTTP/1.1
 		char *posStart = strstr(client_buffer, "/echo/") + strlen("/echo/");
 		char *posEnd = strstr(posStart, " HTTP/1.1");
 		size_t len = posEnd - posStart;
@@ -142,6 +142,7 @@ int main()
 		body[len] = '\0';
 		printf("body: %s\n", body);
 
+		// create response string
 		sprintf(responseStr, "%sContent-Type: %s%sContent-Length: %zu%s%s%s%s%s%S",
 				HTTP_status_codes.HTTP_OK,
 				"text/plain",
@@ -151,21 +152,35 @@ int main()
 				body, // content body
 				CRLF, CRLF, CRLF);
 
-		/*strcat(responseStr, HTTP_status_codes.HTTP_OK);
-		strcat(responseStr, "Content-Type: text/plain");
-		strcat(responseStr, CRLF);
-		strcat(responseStr, "Content-Length: ");
-		char lenStr[10];
-		sprintf(lenStr, "%zu", len);
-		strcat(responseStr, lenStr);
-		strcat(responseStr, CRLF);
-		strcat(responseStr, CRLF);
-		strcat(responseStr, body);
-		strcat(responseStr, CRLF);
-		strcat(responseStr, CRLF);
-		strcat(responseStr, CRLF);*/
+		// send response to client
+		printf("Response:\n%s\n", responseStr); //debug print
+		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
+	}
+	else if (strstr(client_buffer, "GET /user-agent") != NULL)
+	{
+		//extract the text after /ecjo/ and before HTTP/1.1
+		char *posStart = strstr(client_buffer, "User-Agent: ") + strlen("User-Agent: ");
+		char *posEnd = strstr(posStart, CRLF);
+		size_t len = posEnd - posStart;
+		char body[len];
+		printf("len: %zu\n", len);
 
-		printf("Response:\n%s\n", responseStr);
+		strncpy(body, posStart, len);
+		body[len] = '\0';
+		printf("body: %s\n", body);
+
+		// create response string
+		sprintf(responseStr, "%sContent-Type: %s%sContent-Length: %zu%s%s%s%s%s%S",
+				HTTP_status_codes.HTTP_OK,
+				"text/plain",
+				CRLF,
+				len, // content length
+				CRLF, CRLF,
+				body, // content body
+				CRLF, CRLF, CRLF);
+
+		// send response to client
+		printf("Response:\n%s\n", responseStr); //debug print
 		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
 	}
 	else
@@ -174,89 +189,6 @@ int main()
 		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
 		printf("Response:\n%s\n", responseStr);
 	}
-
-	/*if (strcmp(request.path, "/") == 0) // check if string is only /
-	{
-		strcpy(response.status_code, HTTP_status_codes.HTTP_OK);
-		sprintf(responseStr, "%s", response.status_code);
-		strcat(responseStr, CRLF);
-
-		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
-	}
-	else if (strstr(request.path, "/echo/") != NULL)
-	{
-
-		strcpy(response.status_code, HTTP_status_codes.HTTP_OK);
-		strcpy(response.status_message, HTTP_status_messages.OK);
-		strcpy(response.content_type, "text/plain");
-		strcpy(response.body, request.path + strlen("/echo/"));
-
-		// char content_length_buffer[strlen(response.body)];
-		sprintf(response.content_length, "%zu", strlen(response.body));
-		//		printf("Content length: %s \n", response.content_length);
-		//		printf("Response body: %s \n", response.body);
-		//		printf("strlen sixe of body: %zu \n", strlen(response.body));
-
-		sprintf(responseStr, "%sContent-Type: %s %sContent-Length: %s%s%s%s%s",
-				response.status_code,
-				response.content_type,
-				CRLF,
-				response.content_length,
-				CRLF, CRLF, response.body,
-				CRLF, CRLF);
-
-		strcat(responseStr, CRLF);
-
-		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
-
-		// Debugging prints
-		//		printf("Status Code: %s\n", response.status_code);
-		//		printf("Status Message: %s\n", response.status_message);
-		//		printf("Content Type: %s\n", response.content_type);
-		//		printf("Body: %s\n", response.body);
-		//		printf("Content Length: %s\n", response.content_length);
-		printf("Response:\n%s\n", responseStr);
-	}
-	else if (strstr(client_buffer, "User-Agent: ") != NULL)
-	{
-		strcpy(response.status_code, HTTP_status_codes.HTTP_OK);
-		strcpy(response.status_message, HTTP_status_messages.OK);
-		strcpy(response.content_type, "text/plain");
-		char *position = strstr(client_buffer, "User-Agent: ");
-		// position = position - client_buffer;
-		strcpy(response.body, position);
-
-		sprintf(response.content_length, "%zu", strlen(response.body));
-
-		sprintf(responseStr, "%sContent-Type: %s %sContent-Length: %s%s%s%s%s",
-				response.status_code,
-				response.content_type,
-				CRLF,
-				response.content_length,
-				CRLF, CRLF, response.body,
-				CRLF, CRLF);
-
-		strcat(responseStr, CRLF);
-
-		// Debugging prints
-		// printf("Status Code: %s\n", response.status_code);
-		// printf("Status Message: %s\n", response.status_message);
-		// printf("Content Type: %s\n", response.content_type);
-		// printf("Body: %s\n", response.body);
-		// printf("Content Length: %s\n", response.content_length);
-		// printf("Response:\n%s\n", responseStr);
-
-		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
-	}
-
-	else
-	{
-		strcpy(response.status_code, HTTP_status_codes.HTTP_NOT_FOUND);
-		sprintf(responseStr, "%s", response.status_code);
-		strcat(responseStr, CRLF);
-
-		send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
-	}*/
 
 	close(server_fd);
 
