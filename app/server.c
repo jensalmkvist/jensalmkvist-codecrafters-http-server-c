@@ -13,6 +13,15 @@ int main(int argc, char *argv[])
 	int opt;
 
 	opt = getopt_long(argc, argv, "directory");
+	if (opt == "directory")
+	{
+		printf("directory\n");
+	}
+	else
+	{
+		/* code */
+	}
+	
 
 
 	char CRLF[4] = "\r\n"; // carriage return line feed
