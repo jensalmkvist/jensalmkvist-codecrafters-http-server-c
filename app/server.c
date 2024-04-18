@@ -293,7 +293,7 @@ int main(int argc, char *argv[])
 					printf("File exists\n");
 
 					// extract the text in body
-					char *posStart = strstr(client_buffer, "\r\n\r\n") + strlen("\r\n\r\n");
+					/*char *posStart = strstr(client_buffer, "\r\n\r\n") + strlen("\r\n\r\n");
 					char *posEnd = strstr(posStart, "\r\n\r\n");
 					size_t len = posEnd - posStart;
 					char fileContents[len];
@@ -304,7 +304,7 @@ int main(int argc, char *argv[])
 
 					printf("fileContents: %s\n", fileContents);
 
-					fwrite(fileContents, 1, len, file);
+					fwrite(fileContents, 1, len, file);*/
 					
 
 					fclose(file);
