@@ -302,9 +302,9 @@ int main(int argc, char *argv[])
 					strncpy(fileContents, posStart, len);
 					fileContents[len] = '\0';
 
-					printf("fileContents: %s\n", fileContents);
+					printf("fileContents: %s\n", fileContents);*/
 
-					fwrite(fileContents, 1, len, file);*/
+					fwrite("test", 1, len, file);
 					
 
 					fclose(file);
