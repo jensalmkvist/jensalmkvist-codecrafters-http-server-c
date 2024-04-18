@@ -204,7 +204,18 @@ int main(int argc, char *argv[])
 			}
 			else if (strstr(client_buffer, "GET /files/") != NULL)
 			{
-				printf("This is here the files shouldb read and a response created and sent\n");
+				printf("This is where the files should read and a response created and sent\n");
+				if (0)
+				{
+					/* code */
+				}
+				else
+				{
+				sprintf(responseStr, "%s%s", HTTP_status_codes.HTTP_NOT_FOUND, CRLF);
+				send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
+				printf("Response:\n%s\n", responseStr);
+				}
+				
 			}
 			else
 			{
