@@ -221,10 +221,14 @@ int main(int argc, char *argv[])
 				completeFilePath[strlen(directory) + strlen(fileName)] = '\0';
 				printf("Complete file path: %s\n", completeFilePath);
 
+				FILE *file = fopen(completeFilePath, "r");
+
 				// construct the full file path
-				if (0) // check if file exists in directory
+				if (file != NULL) // check if file exists in directory
 				{
-					/* code */
+					printf("File exists\n");
+
+					fclose(file);
 				}
 				else
 				{
