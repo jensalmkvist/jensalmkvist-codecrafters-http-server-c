@@ -13,14 +13,7 @@ int main(int argc, char *argv[])
 	int opt;
 
 	opt = getopt_long(argc, argv, "directory");
-	if (opt == "directory")
-	{
-		printf("directory\n");
-	}
-	else
-	{
-		/* code */
-	}
+	printf("opt: %d\n", opt);
 	
 
 
