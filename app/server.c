@@ -161,7 +161,7 @@ int main()
 		strcat(responseStr, body);
 		strcat(responseStr, CRLF);
 		strcat(responseStr, CRLF);
-		strcat(responseStr, CRLF);
+		//strcat(responseStr, CRLF);
 
 		printf("Response:\n%s\n", responseStr);
 		// send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
