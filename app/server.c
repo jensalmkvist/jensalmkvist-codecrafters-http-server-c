@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 	printf("%d\n", argc);
 	for (i = 0; i < argc - 1; i++)
 	{
-		printf("%s", argv[i]); // remove * from here
+		printf("%s\n", argv[i]); // remove * from here
 	}
 
 	char CRLF[4] = "\r\n"; // carriage return line feed
