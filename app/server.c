@@ -210,6 +210,7 @@ int main(int argc, char *argv[])
 				size_t len = posEnd - posStart;
 				char fileName[len];
 				strncpy(fileName, posStart, len);
+				fileName[len] = '\0';
 
 				fflush(stdout);
 				printf("File name: %s\n", fileName);
