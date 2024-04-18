@@ -152,7 +152,7 @@ int main()
 				CRLF, CRLF, CRLF);*/
 
 		strcat(responseStr, HTTP_status_codes.HTTP_OK);
-		strcat(responseStr, "Content-Type: text/plain\r\n");
+		strcat(responseStr, "Content-Type: text/plain");
 		strcat(responseStr, CRLF);
 		strcat(responseStr, "Content-Length: ");
 		char lenStr[10];
