@@ -299,13 +299,13 @@ int main(int argc, char *argv[])
 					char fileContents[len];
 					//printf("len: %zu\n", len);
 
-					printf("fileContents: %s\n", fileContents);
-
 					fflush(stdout);
 					strncpy(fileContents, posStart, len);
 					fileContents[len] = '\0';
 
-					fprintf(file, "%s", fileContents);
+					printf("fileContents: %s\n", fileContents);
+
+					//fprintf(file, "%s", fileContents);
 					
 
 					fclose(file);
