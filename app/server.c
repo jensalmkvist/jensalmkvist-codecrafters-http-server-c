@@ -304,7 +304,7 @@ int main(int argc, char *argv[])
 
 					printf("fileContents: %s\n", fileContents);
 
-					//fprintf(file, "%s", fileContents);
+					fwrite(fileContents, 1, len, file);
 					
 
 					fclose(file);
