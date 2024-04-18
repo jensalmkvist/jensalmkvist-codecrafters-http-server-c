@@ -142,7 +142,7 @@ int main()
 		body[len] = '\0';
 		printf("body: %s\n", body);
 
-		sprintf(responseStr, "%sContent-Type: %s %sContent-Length: %s%s%s%s%s%s%S",
+		sprintf(responseStr, "%sContent-Type: %s%sContent-Length: %zu%s%s%s%s%s%S",
 				HTTP_status_codes.HTTP_OK,
 				"text/plain",
 				CRLF,
