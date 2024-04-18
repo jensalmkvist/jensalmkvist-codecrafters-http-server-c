@@ -142,13 +142,13 @@ int main(int argc, char *argv[])
 
 			// If case for handling the different stages
 
-			if (strstr(client_buffer, "GET / ") != NULL) // check if path after "GET" is only "/"
+			if (strstr(client_buffer, "GET / ") != NULL) // GET nothing
 			{
 				sprintf(responseStr, "%s%s", HTTP_status_codes.HTTP_OK, CRLF);
 				send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
 				printf("Response:\n%s\n", responseStr);
 			}
-			else if (strstr(client_buffer, "/echo/") != NULL)
+			else if (strstr(client_buffer, "/echo/") != NULL) //GET Echo the message
 			{
 				// extract the text after /ecjo/ and before HTTP/1.1
 				char *posStart = strstr(client_buffer, "/echo/") + strlen("/echo/");
@@ -175,7 +175,7 @@ int main(int argc, char *argv[])
 				printf("Response:\n%s\n", responseStr);				  // debug print
 				send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
 			}
-			else if (strstr(client_buffer, "GET /user-agent") != NULL)
+			else if (strstr(client_buffer, "GET /user-agent") != NULL) //Get user agent
 			{
 				// extract the text after /ecjo/ and before HTTP/1.1
 				char *posStart = strstr(client_buffer, "User-Agent: ") + strlen("User-Agent: ");
@@ -202,7 +202,7 @@ int main(int argc, char *argv[])
 				printf("Response:\n%s\n", responseStr);				  // debug print
 				send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
 			}
-			else if (strstr(client_buffer, "GET /files/") != NULL)
+			else if (strstr(client_buffer, "GET /files/") != NULL) //Get a file
 			{
 				// extract file path from client buffer
 				char *posStart = strstr(client_buffer, "GET /files/") + strlen("GET /files/");
@@ -251,12 +251,17 @@ int main(int argc, char *argv[])
 					printf("Response:\n%s\n", responseStr);				  // debug print
 					send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
 				}
+
 				else
 				{
 					sprintf(responseStr, "%s%s", HTTP_status_codes.HTTP_NOT_FOUND, CRLF);
 					send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
 					printf("Response:\n%s\n", responseStr);
 				}
+			}
+			else if (strstr(client_buffer, "POST ") != NULL) //POST a file
+			{
+				printf("POST request\n");
 			}
 			else
 			{
