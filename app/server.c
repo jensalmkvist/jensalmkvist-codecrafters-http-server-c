@@ -299,6 +299,7 @@ int main(int argc, char *argv[])
 					char fileContents[len];
 					printf("len: %zu\n", len);
 
+					fflush(stdout);
 					strncpy(fileContents, posStart, len);
 					fileContents[len] = '\0';
 
