@@ -294,7 +294,7 @@ int main(int argc, char *argv[])
 
 					// extract the text in body
 					char *posStart = strstr(client_buffer, "\r\n\r\n") + strlen("\r\n\r\n");
-					char *posEnd = strstr(posStart, doubleCRLF);
+					char *posEnd = strstr(posStart, "\r\n\r\n");
 					size_t len = posEnd - posStart;
 					char fileContents[len];
 					//printf("len: %zu\n", len);
