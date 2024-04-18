@@ -12,14 +12,19 @@ int main(int argc, char *argv[])
 	int argcTest = argc;
 
 	printf("argcTest: %d\n", argcTest);
-	//printing the arguments for main
+	// printing the arguments for main
 
-	for (int i = 0; i < argc; i++) {
-        printf("argv[%d] = %s\n", i, argv[i]);
-    }
+	for (int i = 0; i < argc; i++)
+	{
+		printf("argv[%d] = %s\n", i, argv[i]);
+	}
 
-	
-
+	int i;
+	printf("%d\n", argc);
+	for (i = 1; i < argc; i++)
+	{
+		printf("%s", argv[i]);
+	}
 
 	char CRLF[4] = "\r\n"; // carriage return line feed
 	// variable declarations
@@ -121,11 +126,10 @@ int main(int argc, char *argv[])
 		int client_fd = accept(server_fd, (struct sockaddr *)&client_addr, &client_addr_len); // create file descriptor for client
 		printf("Client connected\n");
 
-		if (0 == fork()) //create fork for handling multiple clients concurrently
+		if (0 == fork()) // create fork for handling multiple clients concurrently
 		{
 			close(server_fd);
 
-			
 			// declare buffer for client message
 			char client_buffer[2048];
 
@@ -201,9 +205,8 @@ int main(int argc, char *argv[])
 				printf("Response:\n%s\n", responseStr);				  // debug print
 				send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
 			}
-			else if(strstr(client_buffer, "GET /files/") != NULL)
+			else if (strstr(client_buffer, "GET /files/") != NULL)
 			{
-				
 			}
 			else
 			{
