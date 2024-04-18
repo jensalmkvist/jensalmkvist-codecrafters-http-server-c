@@ -206,7 +206,7 @@ int main(int argc, char *argv[])
 			{
 				// extract file path from client buffer 
 				char *posStart = strstr(client_buffer, "GET /files/") + strlen("GET /files/");
-				char *posEnd = strstr(posStart, "HTTP/1.1");
+				char *posEnd = strstr(posStart, " HTTP/1.1");
 				size_t len = posEnd - posStart;
 				char fileName[len];
 				strncpy(fileName, posStart, len);
