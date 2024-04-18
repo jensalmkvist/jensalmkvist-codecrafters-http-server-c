@@ -285,9 +285,8 @@ int main(int argc, char *argv[])
 				fflush(stdout);
 				printf(client_buffer);
 
-				/*FILE *file = fopen(completeFilePath, "r");
+				FILE *file = fopen(completeFilePath, "w");
 
-				// construct the full file path
 				if (file != NULL) // check if file exists in directory
 				{
 					printf("File exists\n");
@@ -303,7 +302,7 @@ int main(int argc, char *argv[])
 
 					// create response string
 					sprintf(responseStr, "%sContent-Type: %s%sContent-Length: %zu%s%s%s%s%s%S",
-							HTTP_status_codes.HTTP_OK,
+							HTTP_status_codes.HTTP_CREATED,
 							"application/octet-stream",
 							CRLF,
 							bodyLen, // content length
