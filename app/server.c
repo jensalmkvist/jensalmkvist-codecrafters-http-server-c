@@ -204,7 +204,7 @@ int main(int argc, char *argv[])
 			}
 			else if (strstr(client_buffer, "GET /files/") != NULL)
 			{
-				// extract file path from client buffer 
+				// extract file path from client buffer
 				char *posStart = strstr(client_buffer, "GET /files/") + strlen("GET /files/");
 				char *posEnd = strstr(posStart, " HTTP/1.1");
 				size_t len = posEnd - posStart;
@@ -227,8 +227,29 @@ int main(int argc, char *argv[])
 				if (file != NULL) // check if file exists in directory
 				{
 					printf("File exists\n");
+					fseek(file, 0, SEEK_END);
+					long fileSize = ftell(file);
+					rewind(file);
+
+					char body[fileSize];
+					size_t bodyLen = fread(body, 1, fileSize, file);
+					body[bodyLen] = '\0';
 
 					fclose(file);
+
+					// create response string
+					sprintf(responseStr, "%sContent-Type: %s%sContent-Length: %zu%s%s%s%s%s%S",
+							HTTP_status_codes.HTTP_OK,
+							"application/octet-stream",
+							CRLF,
+							bodyLen, // content length
+							CRLF, CRLF,
+							body, // content body
+							CRLF, CRLF, CRLF);
+
+					// send response to client
+					printf("Response:\n%s\n", responseStr);				  // debug print
+					send(client_fd, responseStr, sizeof(responseStr), 0); // send response to client
 				}
 				else
 				{
