@@ -155,7 +155,9 @@ int main()
 		strcat(responseStr, "Content-Type: text/plain\r\n");
 		strcat(responseStr, CRLF);
 		strcat(responseStr, "Content-Length: ");
-		strcat(responseStr, len);
+		char lenStr[10];
+		sprintf(lenStr, "%zu", len);
+		strcat(responseStr, lenStr);
 		strcat(responseStr, CRLF);
 		strcat(responseStr, CRLF);
 		strcat(responseStr, body);
