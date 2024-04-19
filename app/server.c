@@ -290,7 +290,7 @@ int main(int argc, char *argv[])
 
 				if (file != NULL) // check if file exists in directory
 				{
-					printf("File exists\n");
+					//printf("File exists\n");
 
 					char *fileContent = strstr(client_buffer, "\r\n\r\n") + strlen("\r\n\r\n");
 					fwrite(fileContent, 1, strlen(fileContent), file);
